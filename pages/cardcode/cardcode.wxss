@@ -1,0 +1,58 @@
+/* pages/cardcode/cardcode.wxss */
+.wxapi_container {
+  background-color: #f9a01a;
+  height: 605px;
+}
+
+.c-view {
+  display: flex;
+  padding-top: 10rpx;
+}
+
+.date-view {
+  width: 96%;
+  margin-left: 15rpx;
+  border-radius: 7rpx;
+}
+
+.date-text {
+  width:150rpx;
+  font-size:32rpx;
+}
+
+.p-view {
+  width: 80%;
+}
+
+.d-txt {
+  text-align: center;
+  color: white;
+  font-size: 40rpx;
+}
+
+.ipt {
+  height: 50rpx;
+  width: 97%;
+  text-align: center;
+}
+
+.img {
+  width: 100%;
+  height: 700rpx;
+  padding-top: 20rpx;
+}
+
+.txt {
+  padding-top: 15rpx;
+  text-align: center;
+  color: white;
+  font-size: 50rpx;
+}
+
+.btn-view {
+  margin-top: 30rpx;
+}
+
+.v-bt {
+  color: rgb(16, 202, 9);
+}

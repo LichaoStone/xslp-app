@@ -1,0 +1,82 @@
+/** 首页 **/
+page{
+  background: rgb(245, 245, 245);
+}
+/* 今日油价 */
+.gas_price{
+  background: rgb(244, 244, 244);
+  padding: 20rpx;
+}
+.left{
+  float: left;
+  display: flex;
+  align-items: center;
+}
+.image{
+  width: 100%;
+}
+.right{
+  float: right;
+}
+.gas_range{
+  font-size: 28rpx;
+  color: #888;
+  margin-left: 20rpx;
+}
+.gas_price .right{
+  height: 64rpx;
+  line-height: 64rpx;
+}
+.right text{
+  font-size: 26rpx;
+  margin: 0 20rpx;
+}
+.clear{
+  clear: both;
+}
+
+/* 推荐加油 */
+.gas_positon{
+  margin: 20rpx;
+  background: #fff;
+  border-radius: 20rpx;
+}
+.gas_title{
+  color: #0d4ff7;
+  padding: 30rpx;
+}
+.gas_des{
+  margin: 0 40rpx;
+}
+.gas_des view{
+  font-size: 0.8rem;
+  color: rgb(124, 119, 119);
+  margin-bottom: 20rpx;
+}
+.distance{
+  color: #888;
+  font-size: 26rpx;
+}
+.best{
+  font-size: 28rpx;
+  color: rgb(227, 120, 65);
+}
+.gas_tip .right{
+  font-size: 34rpx;
+  color: rgb(227, 120, 65);
+}
+.gas_more{
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #777;
+}
+
+.u-wrp-bnr {
+  height: 480rpx;
+}
+.u-img-slide {
+  width: 100%;
+  height: inherit;
+}

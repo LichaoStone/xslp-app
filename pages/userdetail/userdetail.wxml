@@ -1,0 +1,43 @@
+<!--pages/userdetail/userdetail.wxml-->
+<view class="header-container">
+  <view class='userContent'>
+    <image class="header-avatar" src="{{userInfo.avatarUrl}}" ></image>
+    <view class="txt">
+      <text class="header-nickname">{{userInfo.nickName}}</text>
+    </view>
+  </view>
+  <view class="clear"></view>
+</view>
+
+<view>
+  <view class="info">
+    <view class="in-title">基本信息</view>
+    <view class="in-info">
+      <view class="nick">昵称</view>
+      <view class="txxt">{{userInfo.nickName}}</view>
+    </view>
+    <view class="in-info">
+      <view class="nick">性别</view>
+      <view class="txxt" wx:if="{{userInfo.sex == '1'}}">男</view>
+      <view class="txxt" wx:else>女</view>
+    </view>
+    <view class="in-info">
+      <view class="nick">手机</view>
+      <view class="txxt" wx:if="{{!userInfo.userPhone}}">未授权</view>
+      <view class="txxt" wx:else>{{userInfo.userPhone}}</view>
+    </view>
+  </view>
+  <view class="clear"></view>
+  <view class="info">
+    <view class="in-title">车辆信息</view>
+    <view class="in-info">
+      <view class="nick">车型</view>
+      <view class="txxt">宝马-F80</view>
+    </view>
+    <view class="in-info">
+      <view class="nick">车牌</view>
+      <view class="txxt">沪A·12345</view>
+    </view>
+  </view>
+  <view class="clear"></view>
+</view>

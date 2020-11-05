@@ -1,0 +1,77 @@
+<!--index.wxml-->
+<view class="mycontainer">
+  <view class="gas_price">
+    <!-- <image class="image" src="../../image/zssy-1.jpg"></image> -->
+    <swiper class='u-wrp-bnr' indicator-dots='true' autoplay='true' interval='3500' duration='1500' circular='true'>
+      <block wx:for="{{bnrUrl}}" wx:key="bnrUrl" wx:for-index="index">
+        <swiper-item>
+          <image class="image" src='{{item.url}}'></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="clear"></view>
+  <view class="gas_positon">
+    <view class="gas_title">
+      中胜石油<view class="right" bindtap="jumpStoreList">更多油站</view>
+    </view>
+
+    <view class="gas_des">
+      <view>
+        山东中胜石油化工有限公司自成立以来，始终以“一站式、家庭式”的亲情化服务为特色，
+        以“高品质”的油品为依托，紧紧围绕“品牌、品质、服务”三个主题，尽心尽力打造“精致洗车、开口营销、站容站貌”三个靓点，
+        已在广大消费者中赢得了良好的口碑，树立了诚信、务实的企业形象。
+      </view>
+    </view>
+  </view>
+
+  <!-- 扫码核销组件 -->
+  <v-dialog id="dialog" isShow="{{isShow}}" detail="{{detail}}"></v-dialog>
+
+  <!-- 授权昵称 -->
+  <view class="fadeIn" wx:if="{{showHalf}}">
+      <view class="weui-mask" bindtap="closeHalfDialog"></view>
+      <view class="weui-half-screen-dialog">
+          <view class="weui-half-screen-dialog__hd">
+              <view class="weui-half-screen-dialog__hd__side"></view>
+              <view class="weui-half-screen-dialog__hd__main">
+                  <strong class="weui-half-screen-dialog__title">申请用户昵称授权</strong>
+              </view>
+          </view>
+          <view class="weui-half-screen-dialog__bd">
+              <view class="weui-half-screen-dialog__desc">
+              如需正常使用小程序功能，请点击确定授权获取您的昵称，性别，地理位置
+              </view>
+          </view>
+          <view class="weui-half-screen-dialog__ft">
+              <a style="width:210rpx" class="weui-btn weui-btn_default" bindtap="closeHalfDialog">取 消</a>
+              <button style="width:210rpx" class="weui-btn weui-btn_primary" 
+                bindtap="hidHalfDialog" open-type="getUserInfo" bindgetuserinfo="getWxUserInfo">确 定</button>
+          </view>
+      </view>
+  </view>
+
+  <!-- 授权手机组件 -->
+  <!-- <view class="fadeIn" wx:if="{{showHalf}}">
+    <view class="weui-mask" bindtap="closeHalfDialog"></view>
+    <view class="weui-half-screen-dialog">
+      <view class="weui-half-screen-dialog__hd">
+        <view class="weui-half-screen-dialog__hd__side"></view>
+        <view class="weui-half-screen-dialog__hd__main">
+          <strong class="weui-half-screen-dialog__title">申请用户手机授权</strong>
+        </view>
+      </view>
+      <view class="weui-half-screen-dialog__bd">
+        <view class="weui-half-screen-dialog__desc">
+          如需正常使用小程序功能，请点击确定授权获取您的手机号码
+        </view>
+      </view>
+      <view class="weui-half-screen-dialog__ft">
+        <a class="weui-btn weui-btn_default" bindtap="closeHalfDialog">取 消</a>
+        <button class="weui-btn weui-btn_primary" bindtap="closeHalfDialog" open-type="getPhoneNumber"
+          bindgetphonenumber="getPhoneNumber">确 定</button>
+      </view>
+    </view>
+  </view> -->
+
+</view>

@@ -1,0 +1,219 @@
+/* 头部 */
+page { 
+  background: #F7F7F7;
+}
+
+.header-container {
+  display: flex;
+  height: 264rpx;
+  /* border-radius: 0px 0px 10px 10px; */
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  background-image: url(data:img/jpg;base64,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);
+  align-items: center;
+  position: relative;
+}
+
+.header-bg{
+  width: 100%;
+  height: 100%;
+}
+
+/* 名称和头像 */
+.userContent{
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 34rpx 0 0 42rpx;
+}
+.userContent .txt {
+   padding: 0 0 0 30rpx; 
+   width: 300rpx; 
+   /* color: #333;  */
+   line-height: 50rpx;
+  }
+.userContent .txt text { 
+  display: block;
+}
+.header-avatar {
+  background-color: #fff;
+  width: 114rpx;
+  height: 114rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.mycard-sign{
+  width: 34px;
+  height: 34px;
+  margin-left:20rpx;
+  margin-top:32rpx;
+}
+
+.header-nickname {
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+.header-nicktel { 
+  color: #888; font-size: 24rpx;
+}
+
+/* 帐号管理和信息 */
+.header-userInfo{
+  display: flex;
+  height: 230rpx;
+  width: 100rpx;
+  justify-content: center;
+  align-items: center;
+}
+
+.registere {
+  display: flex;
+  height: 50rpx;
+  width: 150rpx;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-userInfo image{
+  width:20rpx;
+  height:34rpx;
+}
+
+.mycard-sign-nickname{
+  color: #fff;
+  font-size: 50rpx;
+}
+
+.themes .li {
+   background: #FFF; 
+   padding: 32rpx 100rpx; 
+   display: flex; 
+   justify-content: space-between; 
+   margin-bottom: 30rpx;
+}
+
+.themes .li-1 {
+  background: #FFF; 
+  /* padding: 32rpx 10rpx;  */
+  display: flex; 
+  justify-content: space-between; 
+  margin-bottom: 30rpx;
+}
+
+.themes .icon {
+   width: 40rpx; 
+   height: 40rpx;
+}
+.themes .icon image { 
+  display: block; 
+  width: 100%; 
+  height: 100%;
+}
+.themes .right { 
+  /* width: 200rpx;  */
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.themes .menu-v {
+  width: 100rpx;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin-left: 70rpx;
+  margin-bottom: 30rpx;
+}
+
+
+.themes .v {
+  text-align: center;
+  padding-bottom: 20rpx;
+}
+.themes .txt { 
+  font-size: 30rpx; 
+  color: #666; 
+  font-weight: bold;
+}
+.themes .tit { 
+  font-size: 30rpx; 
+  color: #666; 
+  font-weight: bold; 
+  line-height: 30rpx; 
+  margin-bottom: 20rpx;
+}
+.themes .xx { 
+  font-size: 24rpx; 
+  color: rgb(219, 103, 7); 
+  line-height: 24rpx;
+}
+.themes .xxx { 
+  font-size: 24rpx; 
+  color: rgb(173, 172, 170); 
+  line-height: 24rpx;
+  text-align: center;
+}
+.themes .link { 
+  width: 20rpx; 
+  height: 34rpx; 
+}
+
+.themes .img { 
+  width: 100rpx; 
+  height: 95rpx; 
+}
+
+.themes .link image { 
+  display: block; 
+  width: 100%; 
+  height: 100%;
+}
+.configimg {
+  width: 55rpx; 
+  height: 50rpx;
+}
+
+.view_hide{
+  display: none;
+}
+
+.view_show{
+  display: block;
+}
+
+.test {
+  position: flex;
+}
+
+.info {
+  width: 99%;
+}
+
+.in-info{
+  font-size: 25rpx;
+  font-family: "微软雅黑";
+  color:#606060;
+  line-height: 60rpx;
+  padding:16rpx;
+  display: flex;
+  flex-wrap: wrap;
+  width: 640rpx;
+  justify-content: space-between;
+}
+
+.in-title{
+  font-size: 33rpx;
+  font-family: "微软雅黑";
+  color:#949292;
+  line-height: 60rpx;
+  padding-left:20rpx;
+  border-left: 10rpx solid #4ec4c8;
+  border-bottom: 1rpx solid #eeeeee;
+}

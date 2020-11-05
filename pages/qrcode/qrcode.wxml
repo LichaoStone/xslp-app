@@ -1,0 +1,10 @@
+<!-- -->
+<view class="wxapi_container">
+  <view class="txt">{{cardName}}</view>
+  <view style="padding:30rpx">
+    <image class="img" src="data:image/png;base64,{{imgbase64}}"/>
+  </view>
+  <view hidden="{{btnShow}}">
+    <button class="v-bt" bindtap="refushQrCodeFun">换一个</button>
+  </view>
+</view>

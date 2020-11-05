@@ -1,0 +1,47 @@
+
+<!-- 周边门店 -->
+<view class="container">
+  <view id="none-data" style="text-align: center;" class="{{showNoneImg?'showImg':'hidImg'}}">
+    <image style="padding-left: 0px;padding-top: 80px;height:150px;width:150px;" 
+    src="../../image/none-3.png"></image>
+    <view style="text-align: center;">
+      <text>没有搜索到任何油站信息</text>
+    </view>
+  </view>  
+  <view class="table" wx:for="{{storeList}}" wx:key="index"  wx:for-item="store">
+    <view class="tr">
+      <view class="td">
+        <image style="height:60px;width:50px;padding-top: 10px;" src="../../image/logo-1.png"></image>
+      </view>
+      <view class="td-1">
+        <view class="table">
+          <view class="tr">
+            <view class="th-1">{{store.sortName}}</view>
+            <view class="td">
+              <image style="height:30px;width:30px;" 
+                src="../../image/zb.png"
+                bindtap="getLocation" 
+                data-name="{{store.storeName}}"
+                data-addres="{{store.storeAddress}}"
+                data-lon="{{store.longitude}}"
+                data-lat="{{store.latitude}}"></image>
+            </view>
+          </view>
+          <view class="tr">
+            <view class="td-2">{{store.sortAddres}}</view>
+            <view class="td-3">{{store.distance}}km</view>
+          </view>
+          <view class="row-h"></view>
+          <view class="tr">
+            <view class="td-6">服务</view><view class="td-5">{{store.bizzTime}}</view>
+          </view>
+          <view class="row-h"></view>
+          <view class="tr">
+            <view class="td-6">服务</view><view class="td-4">{{store.bizzDesc}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="link-top"></view>
+  </view>
+</view>

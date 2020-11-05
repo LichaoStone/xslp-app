@@ -1,0 +1,47 @@
+<!-- -->
+<view class='input-wrapper'>
+</view>
+<view class="head-s">
+    <view class="h-txt">{{cardName}}</view>
+</view>
+<view class='g-line'></view>
+
+<view class="imgvas">
+    <canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='canvas'></canvas>
+    <view class="code-s">{{cardCode}}</view>
+</view>
+
+<view class='button-wrapper'>
+    <button class="btn" data-cardid="{{cardId}}" data-cardname="{{cardName}}"
+        data-staffopenid="{{staffOpenId}}" 
+        bindtap='consumeUserCouponFun'>立即使用</button>
+</view>
+
+<view class="fadeIn" wx:if="{{showHalf}}">
+    <view class="weui-mask" bindtap="closeHalfDialog"></view>
+    <view class="weui-half-screen-dialog">
+        <view class="weui-half-screen-dialog__hd">
+            <view class="weui-half-screen-dialog__hd__side">
+                <!-- <a class="weui-icon-btn">返回<i class="weui-icon-back-arrow-thin"></i></a> -->
+            </view>
+            <view class="weui-half-screen-dialog__hd__main">
+                <strong class="weui-half-screen-dialog__title">申请用户手机授权</strong>
+            </view>
+            <!-- <view class="weui-half-screen-dialog__hd__side">
+                <a class="weui-icon-btn">更多<i class="weui-icon-more"></i></a>
+            </view> -->
+        </view>
+        <view class="weui-half-screen-dialog__bd">
+            <view class="weui-half-screen-dialog__desc">
+            如需正常使用小程序功能，请点击确定授权获取您的手机号码
+            </view>
+            <!-- <view class="weui-half-screen-dialog__tips">
+                如需正常使用小程序功能，请点击确定进行授权获取您的手机号码
+            </view> -->
+        </view>
+        <view class="weui-half-screen-dialog__ft">
+            <a class="weui-btn weui-btn_default" bindtap="closeHalfDialog">取 消</a>
+            <button class="weui-btn weui-btn_primary" bindtap="hidHalfDialog" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">确 定</button>
+        </view>
+    </view>
+</view>

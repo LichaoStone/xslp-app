@@ -1,0 +1,26 @@
+<!--pages/consume/consume.wxml-->
+<!-- -->
+<view class="wxapi_container">
+  <view>
+    <view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+        <!-- 搜索框 -->
+          <view class="weui-search-bar__box">
+              <input id="cardName" type="text" bindinput="inputValFun" class="weui-search-bar__input" placeholder="请输入卡券名称"/>
+          </view>
+        </view>
+        <!-- 搜索按钮,调用搜索查询方法 -->
+        <view class="search-bar__cancel-btn" bindtap='searchDataFun'>搜 索</view>
+    </view>
+  </view>
+  <view class="lbox_close wxapi_form" wx:for="{{cardTypeInfo}}" wx:key="index"  wx:for-item="card">
+    <view class="btn btn_primary">{{card.cardName}}</view>
+      <view class="cbtn cbtn_primary" bindtap="createClearCodeFun"
+        data-appid="{{card.appId}}"
+        data-cardid="{{card.cardId}}"
+        data-number="{{card.getLimit}}"
+        data-name="{{card.cardName}}"
+        data-type="{{card.cardType}}">核销码</view>
+  </view>
+
+</view>

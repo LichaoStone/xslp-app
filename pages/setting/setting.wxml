@@ -1,0 +1,77 @@
+<!--pages/setting/setting.wxml-->
+<view class="wxapi_container">
+  <view>
+    <view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+        <!-- 搜索框 -->
+          <view class="weui-search-bar__box">
+              <input id="cardName" type="number" maxlength="11" bindinput="inputPhoneFun" class="weui-search-bar__input" placeholder="请输入用户手机号"/>
+          </view>
+        </view>
+        <!-- 搜索按钮,调用搜索查询方法 -->
+        <view class="search-bar__cancel-btn" bindtap='searchUserFun'>搜 索</view>
+    </view>
+  </view>
+</view>  
+
+<view style="padding-top:30rpx;" hidden="{{showFalg}}" class="lbox_close wxapi_form">
+  <!--用户昵称-->
+  <view class='title'>
+    <view class='title_text'>
+      <text>用户昵称:</text>
+      <view style="padding-left:20rpx;font-size:35rpx;">{{userInfo.nickName}}</view>
+    </view>
+  </view>
+  <!--用户手机-->
+  <view class='title'>
+    <view class='title_text'>
+      <text>用户手机:</text>
+      <!-- 用户手机输入框 -->
+      <view style="padding-left:20rpx;font-size:35rpx;">{{userInfo.userPhone}}</view>
+    </view>
+  </view>
+
+  <!--权限列表-->
+  <view class='title'>
+    <view class='title_text'>
+      <text>权限选择:</text>
+      <view class="page-section" style="padding-left: 20rpx;" wx:for="{{items}}" wx:key="index">
+        <radio-group bindchange="radioChange">
+          <label class="">
+            <radio value="{{item.value}}" checked="{{item.checked}}"/><text>{{item.name}}</text>
+          </label>
+        </radio-group>
+      </view>
+    </view>
+  </view>
+
+  <!-- 授权菜单 -->
+  <button class="subtn" bindtap="menuAuthorizeFun" data-openid="{{userInfo.openId}}">授权菜单</button>
+</view>
+
+<!--权限列表-->
+<view hidden="{{tabShow}}">
+    <view class="table">
+        <view class="tr bg-w" style="/*position:fixed;*/z-index:10;width:742rpx;">
+            <view class="th">昵称</view>
+            <view class="th-0">手机</view>
+            <view class="th-1">操作</view>
+        </view>
+        <view style='/*padding-top:80rpx;*/'>
+            <scroll-view scroll-y="true" style="height:850rpx;" bindscrolltolower="">
+                <block wx:for="{{listData}}" wx:key="index">
+                    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                      <view class="td">{{item.nickName}}</view>
+                      <view class="td-0">{{item.userPhone}}</view>
+                      <view class="search-bar__cancel-btn td-1" data-openid="{{item.openId}}" bindtap="delMemberFun">移 除</view>
+                    </view>
+                    <view class="tr" wx:else>
+                      <view class="td">{{item.nickName}}</view>
+                      <view class="td-0">{{item.userPhone}}</view>
+                      <view class="search-bar__cancel-btn td-1" data-openid="{{item.openId}}" bindtap="delMemberFun">移 除</view>
+                    </view>
+                </block>
+            </scroll-view> 
+        </view>
+    </view>
+</view>

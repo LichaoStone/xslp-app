@@ -1,0 +1,125 @@
+<!-- -->
+<view class="header-container">
+  <view class='userContent'>
+    <image class="header-avatar" src="{{avatarUrl}}" ></image>
+    <view class="txt">
+      <text bindtap="userDetailFun" class="header-nickname" wx:if="{{nickName}}">{{nickName}}</text>
+      <text class="header-nickname" wx:else="{{!nickName}}">游客</text>
+    </view>
+    <view class="registere" style="display:{{showLogin?'flex':'none'}}" bindtap="loginFun">
+      <text class="header-nickname">注册/登录</text>
+    </view>
+  </view>
+</view>
+
+<!-- 关注组件 -->
+<!-- <view>
+  <official-account bindload="officialAccountLoadFun" binderror="officialAccountErrorFun"></official-account>
+</view> -->
+
+<!-- 下边分条目 -->
+<view class="themes">
+  <view class="li">
+    <view class="right">
+      <view class="txt">
+        <view class="v">0</view>
+        <view class="xx" bindtap="">积 分</view>
+      </view>
+    </view>
+    <view class="right" bindtap="viewCardCoupon">
+      <view class="txt">
+        <view class="v">{{coupons}}</view>
+        <view class="xx" bindtap="">优惠券</view>
+      </view>
+    </view>
+    <view class="right">
+      <view class="txt">
+        <view class="v">0</view>
+        <view class="xx" bindtap="">余 额</view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="li-1" style="display:{{mShow?'none':'flex'}}">
+    <view class="info">
+      <view class="in-title">菜单</view>
+      <view class="in-info">
+        <block wx:for="{{menuList}}" wx:key="index"  wx:for-item="menu">
+          <view class="menu-v" bindtap="{{menu.menuFun}}" wx:if="{{index % 3 == 0}}">
+            <view class="txt">
+              <image class="img" src="{{menu.icon}}"></image>
+              <view class="xxx">{{menu.menuName}}</view>
+            </view>
+          </view>
+          <view class="menu-v" bindtap="{{menu.menuFun}}" wx:else>
+            <view class="txt">
+              <image class="img" src="{{menu.icon}}"></image>
+              <view class="xxx">{{menu.menuName}}</view>
+            </view>
+          </view>
+        </block>  
+      </view>
+    </view>
+  </view>
+  <!-- <view class="gas_more" bindtap="couponClearFun">卡券详情</view> -->
+</view>
+
+
+<!-- 授权昵称 -->
+<view class="fadeIn" wx:if="{{showHalf}}">
+    <view class="weui-mask" bindtap="closeHalfDialog"></view>
+    <view class="weui-half-screen-dialog">
+        <view class="weui-half-screen-dialog__hd">
+            <view class="weui-half-screen-dialog__hd__side">
+                <!-- <a class="weui-icon-btn">返回<i class="weui-icon-back-arrow-thin"></i></a> -->
+            </view>
+            <view class="weui-half-screen-dialog__hd__main">
+                <strong class="weui-half-screen-dialog__title">申请用户昵称授权</strong>
+            </view>
+            <!-- <view class="weui-half-screen-dialog__hd__side">
+                <a class="weui-icon-btn">更多<i class="weui-icon-more"></i></a>
+            </view> -->
+        </view>
+        <view class="weui-half-screen-dialog__bd">
+            <view class="weui-half-screen-dialog__desc">
+            如需正常使用小程序功能，请点击确定授权获取您的昵称，性别，地理位置
+            </view>
+        </view>
+        <view class="weui-half-screen-dialog__ft">
+            <a style="width:210rpx" class="weui-btn weui-btn_default" bindtap="closeHalfDialog">取 消</a>
+            <button style="width:210rpx" class="weui-btn weui-btn_primary" 
+              bindtap="hidHalfDialog" open-type="getUserInfo" bindgetuserinfo="getWxUserInfo">确 定</button>
+        </view>
+    </view>
+</view>
+
+<!-- 授权手机号 -->
+<view class="fadeIn" wx:if="{{phoneHalf}}">
+    <view class="weui-mask" bindtap="closeHalfDialog"></view>
+    <view class="weui-half-screen-dialog">
+        <view class="weui-half-screen-dialog__hd">
+            <view class="weui-half-screen-dialog__hd__side">
+                <!-- <a class="weui-icon-btn">返回<i class="weui-icon-back-arrow-thin"></i></a> -->
+            </view>
+            <view class="weui-half-screen-dialog__hd__main">
+                <strong class="weui-half-screen-dialog__title">申请用户手机授权</strong>
+            </view>
+            <!-- <view class="weui-half-screen-dialog__hd__side">
+                <a class="weui-icon-btn">更多<i class="weui-icon-more"></i></a>
+            </view> -->
+        </view>
+        <view class="weui-half-screen-dialog__bd">
+            <view class="weui-half-screen-dialog__desc">
+            如需正常使用小程序功能，请点击确定授权获取您的手机号码
+            </view>
+            <!-- <view class="weui-half-screen-dialog__tips">
+                如需正常使用小程序功能，请点击确定进行授权获取您的手机号码
+            </view> -->
+        </view>
+        <view class="weui-half-screen-dialog__ft">
+            <a class="weui-btn weui-btn_default" bindtap="closeHalfDialog">取 消</a>
+            <button class="weui-btn weui-btn_primary" bindtap="hidHalfDialog" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">确 定</button>
+        </view>
+    </view>
+</view>

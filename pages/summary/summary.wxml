@@ -1,0 +1,30 @@
+<!--pages/summary/summary.wxml-->
+<!-- -->
+<view class="wxapi_container">
+  <view>
+    <view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+        <!-- 搜索框 -->
+            <view class="weui-search-bar__box">
+                <input id="cardName" type="text" bindinput="inputValFun" class="weui-search-bar__input" placeholder="请输入卡券名称"/>
+            </view>
+        </view>
+        <!-- 搜索按钮,调用搜索查询方法 -->
+        <view class="search-bar__cancel-btn" bindtap='searchDataFun'>搜 索</view>
+    </view>
+  </view>
+  <view class="lbox_close wxapi_form" wx:for="{{cardTypeInfo}}" wx:key="index"  wx:for-item="card">
+    <view class="btn btn_primary" data-appid="{{card.appId}}"
+      data-cardid="{{card.cardId}}"  data-name="{{card.cardName}}"
+      data-type="{{card.cardType}}">{{card.cardName}}</view>
+      <!-- 查看发券统计 -->
+      <view class="cbtn cbtn_primary" bindtap="viewCouponSummaryFun"
+        data-appid="{{card.appId}}" data-cardid="{{card.cardId}}"
+        data-name="{{card.cardName}}" data-type="{{card.cardType}}">发券统计</view>
+
+      <!-- 查看核销统计 -->
+      <view class="cbtn cbtn_primary" style="margin-left:20rpx;" bindtap="viewConsumCouponFun"
+        data-appid="{{card.appId}}" data-cardid="{{card.cardId}}"
+        data-name="{{card.cardName}}" data-type="{{card.cardType}}">核销统计</view>  
+  </view>
+</view>

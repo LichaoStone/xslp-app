@@ -1,0 +1,24 @@
+
+/**     */
+
+.wxapi_container {
+  background-color: cornflowerblue;
+  height: 605px;
+}
+
+.img {
+  width: 100%;
+  height: 700rpx;
+  padding-top: 20rpx;
+}
+
+.txt {
+  padding-top: 15rpx;
+  text-align: center;
+  color: white;
+  font-size: 50rpx;
+}
+
+.v-bt {
+  color: rgb(16, 202, 9);
+}

@@ -1,0 +1,6 @@
+<!--pages/couponsynch/couponsynch.wxml-->
+<view class="wxapi_container">
+  <view class="lbox_close wxapi_form">
+    <button class="btn btn_primary" style="width:98%;" bindtap="couponSynchFun">卡券同步</button>
+  </view>
+</view>

@@ -1,0 +1,125 @@
+<!--pages/usercoupon/usercoupon.wxml-->
+<view class="tabNav">
+    <view wx:for="{{navTab}}" wx:key="index" data-idx="{{index}}" bindtap="currentTab" class="{{currentTab==index ? 'cur' : ''}}">
+      <text>{{item}}</text>
+    </view>
+</view>
+<view class="orderInfo" style="padding-top: 90rpx; position:{{position}}">
+  <!-- 可以使用 -->
+  <view class="orderInfo-item cro" wx:for="{{showList}}" wx:key="index" hidden="{{showFlag}}">
+    <view class="coupon-list" wx:if="{{currentTab==0}}">
+        <view class="item stamp stamp01">
+            <!-- 左侧 -->
+            <view class="float-li t1">
+                <view class="coupon-left">
+                    <view class="t t5">{{item.cardName}}</view>
+                    <view class="t6">券码：{{item.code}}</view>
+                    <!-- <view class="t7" wx:if="{{item.fixedTerm!=undefined}}">有效期：领券后{{item.fixedTerm}}天</view>
+                    <view class="t7" wx:elif="{{item.fixedTerm==undefined}}">有效期：{{item.beginDate}}至{{item.endDate}}</view> -->
+                </view>
+            </view>
+            <view class="cro_right_top"></view>
+            <view class="cro_right_bottom"></view>
+            <view class="cro_left_top"></view>
+            <view class="cro_left_bottom"></view>
+            <!-- 右侧 -->
+            <view class="float-li-rig">
+              <view class="t6">有效期</view>
+              <view class="t7-1" wx:if="{{item.fixedTerm!=undefined}}">领券后{{item.fixedTerm}}天</view>
+              <view class="t7" wx:elif="{{item.fixedTerm==undefined}}">
+                <view>{{item.beginDate}}</view> 
+                <view>{{item.endDate}}</view>
+              </view>  
+              <view class="coupon-rig" data-cardId="{{item.cardId}}" data-code="{{item.code}}" bindtap="couponDetail">
+                <view class="t3 t"><text>详情</text></view>
+              </view>
+            </view>
+        </view>
+    </view>
+    <!-- 已使用-->
+    <view class="coupon-list" wx:elif="{{currentTab==1}}">
+      <view class="item stamp stamp06">
+        <!-- 左侧 -->
+        <view class="float-li t1">
+          <view class="coupon-left">
+            <view style="color: #8c8989;" class="t t5">{{item.cardName}}</view>
+            <view style="color: #8c8989;" class="t6-1">券码：{{item.code}}</view>
+            <view style="color: #8c8989;" class="t7" wx:if="{{item.fixedTerm!=undefined}}">有效期：领券后{{item.fixedTerm}}天</view>
+            <view style="color: #8c8989;" class="t7" wx:elif="{{item.fixedTerm==undefined}}">有效期：{{item.beginDate}}-{{item.endDate}}</view>
+            <view style="color: #8c8989;" class="t8">门店：{{item.storeName}}</view>
+          </view>
+        </view>
+        <view class="cro_right_top"></view>
+        <view class="cro_right_bottom"></view>
+        <view class="cro_left_top"></view>
+        <view class="cro_left_bottom"></view>
+        <!-- 右侧 -->
+        <view class="float-li-rig">
+          <view class="coupon-rig" data-cardId="{{item.cardId}}" data-code="{{item.code}}">
+            <image class="sy-img" src="../../image/12.png"></image>
+            <view class="t8">日期：{{item.consumeTime}}</view>
+            <view class="t9" wx:if="{{item.userAes == 0}}" data-staffopenid="{{item.staffOpenId}}"
+              data-code="{{item.code}}" bindtap="userAesFun">评 价</view>
+            <view class="t10" wx:else>已 评 价</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 已过期 -->
+    <view class="coupon-list" wx:if="{{currentTab==2}}">
+        <view class="item stamp stamp06">
+            <!-- 左侧 -->
+            <view class="float-li t1">
+                <view class="coupon-left">
+                  <view style="color: #8c8989;" class="t t5">{{item.cardName}}</view>
+                  <view style="color: #8c8989;" class="t6-1">券码：{{item.code}}</view>
+                  <view style="color: #8c8989;" class="t7" wx:if="{{item.fixedTerm!=undefined}}">有效期：领券后{{item.fixedTerm}}天</view>
+                  <view style="color: #8c8989;" class="t7" wx:elif="{{item.fixedTerm==undefined}}">有效期：{{item.beginDate}}-{{item.endDate}}</view>
+                </view>
+            </view>
+            <view class="cro_right_top"></view>
+            <view class="cro_right_bottom"></view>
+            <view class="cro_left_top"></view>
+            <view class="cro_left_bottom"></view>
+            <!-- 右侧 -->
+            <view class="float-li-rig">
+                <view class="coupon-rig" data-cardId="{{item.cardId}}" data-code="{{item.code}}">
+                  <image class="end-img" src="../../image/13.png"></image>
+                  <view class="t8">日期：{{item.createTime}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+  </view>
+  
+
+  <!-- 无卡券显示 -->
+  <view class="none-coupon" hidden="{{noneShow}}">
+    <image class="none-coupon-img" src="../../image/icon-card.png"></image>
+    <view class="img-txt">暂无任何数据</view>
+  </view>
+
+  <modal wx:if="{{showStatus}}" bindcancel="cancelFun" bindconfirm="confirmFun">
+    <!--drawer content-->
+    <view class="drawer_title">评论</view>
+    <view class="drawer_content">
+      <view class="header">
+        <view class="right">
+          <view class="rightSpan">商家服务</view>
+          <block wx:for="{{one_1}}" wx:key="index">
+            <image catchtap="service_in" id="{{index+1}}" data-in="use_sc1" src="../../image/zz.png"></image>
+          </block>
+          <block wx:for="{{two_1}}" wx:key="index">
+            <image catchtap="service_in" id="{{index+1}}" data-in="use_sc" src="../../image/nz.png"></image>
+          </block>
+        </view>
+      </view>
+
+      <view>
+        <textarea style="width: 100%;" bindinput="textareaInputFun" maxlength="50"
+          placeholder="说说您对服务的体验吧！最多可输入50个字哦~"></textarea>
+      </view>
+    </view>
+  </modal>
+
+</view>

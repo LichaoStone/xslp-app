@@ -1,0 +1,65 @@
+<!-- -->
+<view class="wxapi_container">
+  <view>
+    <view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+        <!-- 搜索框 -->
+          <view class="weui-search-bar__box">
+              <input id="cardName" type="text" bindinput="inputValFun" class="weui-search-bar__input" placeholder="请输入卡券名称"/>
+          </view>
+        </view>
+        <!-- 搜索按钮,调用搜索查询方法 -->
+        <view class="search-bar__cancel-btn" bindtap='searchDataFun'>搜 索</view>
+    </view>
+  </view>
+  <view class="lbox_close wxapi_form" wx:for="{{cardTypeInfo}}" wx:key="index"  wx:for-item="card">
+    <view class="btn btn_primary">{{card.cardName}}</view>
+    <!-- 发券张数输入框 -->
+    <!-- <view style="width:90rpx;">
+        <view class="weui-search-bar__form">
+          <view class="weui-search-bar__box">
+              <input style="width:60rpx;" id="cpNumber" type="number" maxlength="2" focus="true" bindfocus="inputNumber"
+              value="{{couponNumber}}" bindinput="inputNumber" class="weui-search-bar__input" placeholder="张数"/>
+          </view>
+        </view>
+    </view>
+    <text style="padding-top:15rpx;">张</text> -->
+    <!-- 发券 -->
+    <view class="cbtn cbtn_primary" bindtap="showQrCodeFun"
+      data-appid="{{card.appId}}"
+      data-cardid="{{card.cardId}}"
+      data-number="{{card.getLimit}}"
+      data-name="{{card.cardName}}"
+      data-type="{{card.cardType}}">发券</view>
+
+    <modal hidden="{{modalShow}}" title="请输入操作" confirm-text="确定" 
+      cancel-text="取消" bindcancel="cancelFun" bindconfirm="confirmFun">
+      <view>   
+        <!--卡券张数-->
+        <view class='title'>
+          <view class='title_text'>
+            <text>发券张数:</text>
+            <!-- 张数输入框 -->
+            <input id="cpNumber" type="number" 
+            maxlength="2" focus="true" value="{{couponNumber}}" bindinput="inputNumber" 
+            class="ipt" placeholder="张数"/>
+          </view>
+        </view>
+        <!--领券模式-->
+        <view class='title'>
+          <view class='title_text'>
+            <text>发券模式:</text>
+            <view class="page-section" style="padding-left: 20rpx;" wx:for="{{items}}" wx:key="index">
+              <radio-group bindchange="radioChange">
+                <label class="">
+                  <radio value="{{item.value}}" checked="{{item.checked}}"/><text>{{item.name}}</text>
+                </label>
+              </radio-group>
+            </view>
+          </view>
+        </view>
+      </view>  
+    </modal>    
+  </view>
+
+</view>

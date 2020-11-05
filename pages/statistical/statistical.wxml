@@ -1,0 +1,104 @@
+<!--pages/statistical/statistical.wxml-->
+<view>
+    <view class="date-view">
+        <view class="weui-search-bar" style="width:320rpx">
+            <view class="search-bar__cancel-btn" style="width:70rpx;font-size:30rpx;" bindtap='searchDataFun'>开始:</view>
+            <picker mode="date" value="{{dateValue}}" start="1999-01-01" end="2999-12-12" bindchange="startPickerBindchange">
+                <view class="weui-search-bar__form" style="margin-left:10rpx;">
+                    <input id="startDate" type="text" value="{{startDate}}" disabled="true" class="ipt" placeholder="开始日期"/>
+                </view>
+            </picker>    
+        </view>
+        <view class="weui-search-bar" style="width:410rpx;">
+            <view class="search-bar__cancel-btn" style="font-size:30rpx;width:90rpx;" bindtap='searchDataFun'>结束:</view>
+            <picker mode="date" value="{{dateValue}}" start="1999-01-01" end="2999-12-12" bindchange="endPickerBindchange">
+                <view class="weui-search-bar__form" style="margin-left:10rpx;">
+                    <input id="cardName" type="text" value="{{endDate}}" disabled="true" class="ipt" placeholder="结束日期"/>
+                </view>
+            </picker>
+            <view class="v-search" bindtap='couponStatistical'>搜 索</view>
+        </view>
+    </view>
+    <!-- count 领取数 -->
+    <view class="weui-search-bar data-info">
+        <view class="h-view"><text>数量</text></view>
+        <view class="t-view"><text>{{summaryInfo==''?0:summaryInfo.count}}</text></view>
+    </view>
+    <view class="br-view"></view>
+</view>
+<!-- 表格明细 -->
+<view>
+    <view class="table">
+        <view class="tr bg-w" style="position:fixed;z-index:10;width:720rpx;">
+            <view class="th">昵称</view>
+            <view class="th-0">手机</view>
+            <view class="th-1">日期</view>
+            <view wx:if="{{countType == 1}}" class="th-0">评价</view>
+        </view>
+        <view style='padding-top:80rpx;'>
+            <scroll-view scroll-y="true" style="height:850rpx;" bindscrolltolower="downFootFun">
+                <block wx:for="{{listData}}" wx:key="index">
+                    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                        <view class="td">{{item.nickName}}</view>
+                        <view class="td-0">{{item.userPhone}}</view>
+                        <view class="td-1" wx:if="{{countType == 0}}">{{item.createTime}}</view>
+                        <view class="td-1" wx:else>{{item.consumeTime}}</view>
+                        <view wx:if="{{countType == 1}}">
+                            <view class="td-2" wx:if="{{item.quality > 0}}" data-usercode="{{item.userCode}}" data-code="{{item.couponCode}}"
+                                bindtap="showServiceAesFun">{{item.quality}}个赞</view>
+                            <view class="td-3" wx:else >无评论</view>
+                        </view>
+                    </view>
+                    <view class="tr" wx:else>
+                        <view class="td">{{item.nickName}}</view>
+                        <view class="td-0">{{item.userPhone}}</view>
+                        <view class="td-1" wx:if="{{countType == 0}}">{{item.createTime}}</view>
+                        <view class="td-1" wx:else>{{item.consumeTime}}</view>
+                        <view wx:if="{{countType == 1}}">
+                            <view class="td-2" wx:if="{{item.quality > 0}}" data-usercode="{{item.userCode}}" data-code="{{item.couponCode}}"
+                                bindtap="showServiceAesFun">{{item.quality}}个赞</view>
+                            <view class="td-3" wx:else >无评论</view>
+                        </view>    
+                    </view>
+                </block>
+            </scroll-view> 
+        </view>
+    </view>
+</view>
+
+
+<!-- 用户服务评价 -->
+<view class="fadeIn" wx:if="{{showDialog}}">
+    <view class="weui-mask" bindtap="closeHalfDialog"></view>
+    <view class="weui-half-screen-dialog">
+        <view class="weui-half-screen-dialog__hd">
+            <view class="weui-half-screen-dialog__hd__side"></view>
+            <view class="weui-half-screen-dialog__hd__main">
+                <strong class="weui-half-screen-dialog__title">用户服务评价</strong>
+            </view>
+        </view>
+        <view class="weui-half-screen-dialog__bd">
+            <view class="weui-half-screen-dialog__desc">
+                <view class="header">
+                    <view class="right">
+                        <view class="rightSpan">商家服务</view>
+                        <block wx:for="{{one_1}}" wx:key="index">
+                            <image id="{{index+1}}" data-in="use_sc1" src="../../image/zz.png"></image>
+                        </block>
+                    </view>
+                </view>
+                <view class="header">
+                    <view class="rightSpan">用户评语</view>
+                </view>
+                
+                <view class="pingyu">
+                    <textarea disabled="true" value="{{aesVal}}" maxlength="50"></textarea>
+                </view>
+
+            </view>
+        </view>
+        <view class="weui-half-screen-dialog__ft">
+            <a class="weui-btn weui-btn_default" bindtap="closeHalfDialog">关 闭</a>
+        </view>
+    </view>
+</view>

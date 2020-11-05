@@ -1,0 +1,223 @@
+/* pages/usercoupon/usercoupon.wxss */
+.tabNav{
+  z-index: 4; 
+  position: fixed; 
+  top:0;
+  left:0; 
+  width:100%; 
+  height:70rpx; 
+  line-height: 70rpx; 
+  background: rgb(253, 253, 253); 
+  display: flex; 
+  /* padding:0 30rpx;  */
+  border-bottom:1px solid #f5f5f5; 
+  box-sizing: border-box; 
+}
+.tabNav> view{
+  text-align: center; 
+  margin-right:20rpx;
+  width: 40%;
+}
+.tabNav> view:last-child{ 
+  margin-right: 0;
+}
+.tabNav> view text{
+  padding:0 15rpx; 
+  height:70rpx;
+  display:inline-block;
+}
+.tabNav .cur{ 
+  border-bottom:5rpx solid #36ccf9; 
+  background: rgb(235, 233, 233); 
+  color:rgb(4, 185, 65);
+}
+
+/*   优惠券样式  */
+.coupon-list{width: 710rpx; margin:  0 auto;}
+.coupon-list .item{width: 710rpx; height: 200rpx; margin-bottom: 20rpx;}
+.coupon-list .item .float-li{width: 450rpx; height: 100%; border-right: 2rpx dashed rgba(255,255,255,.3)}
+.coupon-list .item .float-li-rig{width: 240rpx; padding-right: 20rpx; height:100%; color: #fff;text-align: center;}
+.coupon-list .item .float-li-rig .t5 {
+  padding-top: 10rpx;
+  padding-bottom: 5rpx;
+}
+.coupon-list .item .float-li-rig .t7 {
+  line-height: 30rpx;
+  font-size: 30rpx;
+  width: 260rpx;
+}
+
+.coupon-list .item .float-li-rig .t7-1 {
+  line-height: 35rpx;
+  font-size: 30rpx;
+  width: 260rpx;
+  margin: 10rpx 0rpx;
+}
+ 
+.coupon-left{position: relative}
+.coupon-left .t{position: absolute; color: #fff}
+.coupon-left .t1{left: 10rpx; top: 110rpx}
+.coupon-left .t2{left: 30rpx; top: 50rpx; font-size: 80rpx; font-weight: bold }
+.coupon-left .t3{left: 220rpx; top: 50rpx; width: 200rpx; font-size: 30rpx;}
+.coupon-left .t4{left: 10rpx; top:180rpx}
+.coupon-left .t5{left: 20rpx; top:20rpx; font-size: 40rpx;}
+.coupon-left .t6{margin-left: 20rpx; margin-top: 120rpx; position: absolute; color: white; font-size: 30rpx;}
+.coupon-left .t6-1{margin-left: 20rpx; margin-top: 80rpx; position: absolute; color: white; font-size: 30rpx;}
+.coupon-left .t7{padding-left: 20rpx; padding-top: 130rpx; position: absolute; color: white; font-size: 25rpx;}
+.coupon-left .t8{padding-left: 20rpx; padding-top: 160rpx; position: absolute; color: white; font-size: 25rpx;}
+
+.coupon-rig{width: 260rpx;position: relative;text-align: center;}
+.coupon-rig .t{text-align: center}
+.coupon-rig .t1{font-size: 40rpx; padding: 30rpx 0 10rpx 0;}
+
+.coupon-rig .t3 text{font-size: 30rpx; background: #d85a5a; color: rgb(244, 247, 244); border-radius: 7rpx; padding: 5rpx 40rpx}
+.coupon-rig .t4 {text-align: left;}
+.coupon-rig .t4 text{padding-left: 50rpx;position: absolute; color: #fff;top:60rpx; font-size: 45rpx;}
+
+.coupon-rig .t8{
+  /* z-index: 10; */
+  position: absolute;
+  /* padding-top: 90rpx; */
+  padding-left: 20rpx;
+  font-size: 27rpx;
+  color: #8c8989;
+}
+
+.coupon-rig .t9 {
+  color: #5aec65;
+  margin-top: 40rpx;
+  text-decoration: underline;
+}
+
+.coupon-rig .t10 {
+  color: #5aec65;
+  margin-top: 40rpx;
+}
+
+
+.note{background: #faeab7}
+ 
+ 
+.stamp{width:700rpx; height:200rpx;margin-bottom:50rpx;display: flex;/*position:relative;overflow:hidden*/}
+.stamp i{position: absolute;left: 20%;top: 90rpx;height: 500rpx;width: 700rpx;background-color: rgba(255,255,255,.15);transform: rotate(-30deg);
+}
+.stamp01{background:radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 30rpx, #F39B00 30rpx);background-size:10rpx 10rpx;background-position:9rpx 3rpx; background: #F39B00}
+.stamp02{background:radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 30rpx, #D24161 30rpx);background-size:10rpx 10rpx;background-position:9rpx 3rpx; background: #D24161}
+.stamp03{background:radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 30rpx, #D24161 30rpx);background-size:10rpx 10rpx;background-position:9rpx 3rpx; background: #7EAB1E }
+.stamp04{background:radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 30rpx, #D24161 30rpx);background-size:10rpx 10rpx;background-position:9rpx 3rpx; background: #50ADD3 }
+.stamp05{background:radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 30rpx, #D24161 30rpx);background-size:10rpx 10rpx;background-position:9rpx 3rpx; background: #f0229b}
+.stamp05{background:radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 30rpx, #D24161 30rpx);background-size:10rpx 10rpx;background-position:9rpx 3rpx; background: #f0229b}
+
+/* 失效优惠券样式 */
+.stamp06{
+  background:radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 30rpx, #e2e2e2 30rpx);
+  background-size:10rpx 10rpx;
+  background-position:9rpx 3rpx; 
+  background: #acacac
+}
+
+
+.none-coupon {
+  padding-top: 180rpx;
+  text-align: center;
+}
+
+.none-coupon-img {
+  width: 480rpx;
+}
+
+.img-txt {
+  color: rgb(156, 153, 153);
+}
+
+.sy-img {
+  width: 220rpx;
+  height: 70rpx;
+  margin-top: 15rpx;
+}
+
+.end-img {
+  width: 220rpx;
+  height: 70rpx;
+  margin-top: 35rpx;
+}
+
+.cro {
+  position: relative;
+}
+
+
+.cro_left_top, .cro_right_top, .cro_left_bottom, .cro_right_bottom {
+  position: absolute;
+  border: 1px solid #fff;
+  z-index: 1;
+  background: #fff;
+}
+
+.cro_left_top {
+  margin-left: 450rpx;
+  border-radius: 0px 0px 70rpx 0px;
+  width: 10rpx;
+  height: 10rpx;
+}
+
+.cro_left_bottom {
+  top: 190rpx;
+  margin-left: 450rpx;
+  border-radius: 0px 70rpx 0px 0px;
+  width: 10rpx;
+  height: 10rpx;
+}
+
+.cro_right_top {
+  margin-left: 436rpx;
+  border-radius: 0px 0px 0px 70rpx;
+  width: 11rpx;
+  height: 10rpx;
+}
+
+.cro_right_bottom {
+  top: 190rpx;
+  margin-left: 436rpx;
+  border-radius: 70rpx 0px 0px 0px;
+  width: 11rpx;
+  height: 10rpx;
+}
+
+
+.drawer_title {
+  font: 20px "microsoft yahei";
+  text-align: center;
+  padding-bottom: 40rpx;
+}
+
+.drawer_content {
+  height: 210px;
+  overflow-y: scroll; /*超出父盒子高度可滚动*/
+}
+
+
+.header {
+  padding: 0 0 20rpx;
+  border-bottom: 2rpx solid #eee
+}
+
+
+.right {
+  display: flex;
+  padding-bottom: 20rpx;
+}
+
+/* 星星样式 */
+.rightSpan {
+  font-size: 32rpx;
+  margin-top: 0.2rem;
+  margin-right: 0.5rem;
+}
+
+.right image {
+  width: 60rpx;
+  height: 60rpx;
+  display: inline-block;
+  margin: 0 2.4rpx;
+}

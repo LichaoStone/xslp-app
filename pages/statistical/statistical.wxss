@@ -1,0 +1,168 @@
+/* pages/statistical/statistical.wxss */
+
+/*   优惠券样式  */
+.date-view {
+  display: flex;
+  width: 730rpx;
+  margin-top: 20rpx;
+  margin-left: 15rpx;
+}
+.ipt {
+  height: 50rpx;
+  width: 200rpx;
+  text-align: center;
+}
+.v-search {
+  width: 100rpx;
+  text-align: right;
+  color: rgb(5, 192, 30);
+}
+
+
+.data-info {
+  /* margin-top: 20rpx;
+  margin-left: 15rpx;
+  width: 96%;
+  height: 550rpx;
+  background:radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 30rpx, #D24161 30rpx);
+  background-size:10rpx 10rpx;
+  background-position:9rpx 3rpx;  */
+  display: flex;
+  width: 720rpx;
+  margin-top: 20rpx;
+  margin-left: 15rpx;
+  /* background: #50ADD3 */
+  background-color: rgb(166, 160, 252);
+}
+
+.h-view {
+  width: 50%;
+  font-weight: bold;
+  color: rgb(253, 253, 253);
+}
+
+.t-view {
+  width: 50%;
+  font-weight: bold;
+  text-align: right;
+  color: rgb(253, 253, 253);
+}
+
+.br-view {
+  height: 50rpx;
+}
+
+/*  表格样式 */
+.table {
+  border: 0px solid darkgray;
+  width: 96%;
+  height: 100%;
+  padding-left: 15rpx;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 3rem;
+  align-items: center;
+}
+.td {
+    width:20%;
+    font-size: 28rpx;
+    justify-content: center;
+    text-align: center;
+}
+
+.td-0 {
+  width:25%;
+  font-size: 28rpx;
+  justify-content: center;
+  text-align: center;
+}
+.td-1 {
+  width:43%;
+  font-size: 28rpx;
+  justify-content: center;
+  text-align: center;
+}
+
+.td-2 {
+  text-decoration: underline;
+  color: #ff3405;
+  /* width: 12%; */
+  font-size: 28rpx;
+  justify-content: center;
+  text-align: center;
+}
+
+.td-3 {
+  color: #908e8d;
+  /* width: 12%; */
+  font-size: 28rpx;
+  justify-content: center;
+  text-align: center;
+}
+
+.bg-w{
+  background: snow;
+}
+.bg-g{
+  background: #E6F3F9;
+}
+.th {
+  width: 30%;
+  justify-content: center;
+  background: #86a2f7;
+  color: #fff;
+  display: flex;
+  height: 2.5rem;
+  align-items: center;
+}
+
+.th-0 {
+  width: 28%;
+  justify-content: center;
+  background: #86a2f7;
+  color: #fff;
+  display: flex;
+  height: 2.5rem;
+  align-items: center;
+}
+
+.th-1 {
+  width: 42%;
+  justify-content: center;
+  background: #86a2f7;
+  color: #fff;
+  display: flex;
+  height: 2.5rem;
+  align-items: center;
+}
+
+.header {
+  padding: 16rpx 20rpx;
+  border-bottom: 1rpx solid #eee
+}
+
+.right {
+  display: flex;
+}
+
+.rightSpan {
+  font-size: 32rpx;
+  margin-top: 0.2rem;
+  margin-right: 0.5rem;
+}
+
+.right image {
+  width: 60rpx;
+  height: 60rpx;
+  display: inline-block;
+  margin: 0 2.4rpx;
+}
+
+.pingyu {
+  padding: 16rpx 20rpx;
+  font-size: 30rpx;
+  color: #84817e;
+}

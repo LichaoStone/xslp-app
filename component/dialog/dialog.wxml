@@ -1,0 +1,23 @@
+
+<view class="fadeIn"  hidden="{{isShow}}">
+    <view class="v-weui-dialog" style="background-color: #80f578;">
+        <view class='input-wrapper'></view>
+        <view class="head-s">
+            <view class="h-txt">{{cardName}}</view>
+        </view>
+        <view class='g-line'></view>
+
+        <view class="imgvas">
+            <canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='canvas'></canvas>
+            <view class="code-s">{{cardCode}}</view>
+        </view>
+
+        <view class='button-wrapper'>
+            <button class="btn" style="width:33%;" bindtap='_clossDialogFun'>取消</button>
+            <button class="btn" style="width:33%;" data-cardid="{{cardId}}" data-cardname="{{cardName}}"
+                data-staffopenid="{{staffOpenId}}" 
+                bindtap='_consumeUserCouponFun'>立即使用</button>
+        </view>
+    </view>
+</view>
+
