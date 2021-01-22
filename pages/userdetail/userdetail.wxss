@@ -89,3 +89,7 @@
   padding-right: 10rpx;
   border-bottom: 1rpx solid #eeeeee;
 }
+.btn-view {
+  background-color: #ff5757;
+  color: #f3f6f7;
+}

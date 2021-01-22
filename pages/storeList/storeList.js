@@ -65,7 +65,7 @@ Page({
           let longitude = res.longitude.toString();
           let latitude = res.latitude.toString();
           let s_index = that.data.indexs;
-          let radius = 1000; // 默认10千米
+          let radius = 5000; // 默认10千米
           //
           if(1 == s_index){
             radius = 15;

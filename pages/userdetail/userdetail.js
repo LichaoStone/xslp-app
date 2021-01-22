@@ -7,8 +7,70 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: null
+    userInfo: null,
+    carCode: null
   },
+
+  carCodeValFun: function(e){
+    console.log('车牌内容：', e.detail.value);
+    this.setData({
+      carCode: e.detail.value
+    });
+  },
+
+  updateInfoFun: function(){
+    //
+    let carCode = this.data.carCode;
+    let regxStr = "([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1})";
+    let regx_obj = new RegExp(regxStr);
+    if(regx_obj.test(carCode)){
+      // 请求后台修改信息
+      wx.request({
+        url: app.globalData.path + '/store/updateUserPhone',
+        dataType: 'json',
+        data: {
+          data: {
+            appId: app.globalData.appId,
+            openId: app.globalData.openId,
+            carCode: carCode
+          }
+        },
+        success: function(res){
+          console.log('更新车牌返回结果：',res);
+          let code = res.data.code;
+          if("200" == code){
+            // 弹出提示信息框
+            wx.showModal({
+              title: '成功提示',
+              content: '车牌更新成功',
+              success (res) {
+                console.log(res);
+              }
+            });
+          }else{
+            // 弹出提示信息框
+            wx.showModal({
+              title: '失败提示',
+              content: '车牌更新失败',
+              success (res) {
+                console.log(res);
+              }
+            });
+          }
+        }
+      });
+    }else{
+      // 弹出提示信息框
+      wx.showModal({
+        title: '错误提示',
+        content: '请输入正确车牌号',
+        success (res) {
+          console.log(res);
+        }
+      });
+    }
+  },
+
 
   /**
    * 生命周期函数--监听页面加载

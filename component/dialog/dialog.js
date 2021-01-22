@@ -29,6 +29,7 @@ Component({
         isShow: true,
         // 用于设置wxml里canvas的width和height样式
         qrcodeWidth: qrcodeWidth,
+        storeName: null,
         staffOpenId: null,
         cardId: null,
         cardCode: '',
@@ -115,7 +116,7 @@ Component({
                 data: {
                     data: {
                         appId: app.globalData.appId,
-                        openId: wx.getStorageSync('openId'),
+                        openId: app.globalData.openId,
                         cardId: cardId,
                         cardName: cardName,
                         staffOpenId: staffOpenId,
@@ -182,6 +183,26 @@ Component({
             let cardName = paraAry[1];
             let cardType = paraAry[2];
             let staffOpenId = paraAry[3];
+            // 查询核销门店名称
+            wx.request({
+              url: app.globalData.path + '/store/queryStoreStaffInfo',
+              dataType: 'json',
+                data: {
+                    data: {
+                        appId: app.globalData.appId,
+                        openId: staffOpenId
+                    }
+                },
+                success: function (res) {
+                    console.log('查询核销门店返回：',res);
+                    if(null != res.data && res.data.length > 0){
+                        let storeData = res.data[0];
+                        that.setData({
+                            storeName: storeData.storeName
+                        });
+                    }
+                }
+            });
             // 查询可核销的卡券
             wx.request({
                 url: app.globalData.path + '/store/getUserCouponClear',
@@ -189,7 +210,7 @@ Component({
                 data: {
                     data: {
                         appId: app.globalData.appId,
-                        openId: wx.getStorageSync('openId'),
+                        openId: app.globalData.openId,
                         cardId: cardId,
                         cardName: cardName,
                         cardType: cardType

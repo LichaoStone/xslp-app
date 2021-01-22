@@ -1,5 +1,5 @@
 // pages/statistical/statistical.js
-const { formatTime } = require("../../utils/util");
+const { formatTime, dateSubToDaysFun } = require("../../utils/util");
 
 const app = getApp();
 //
@@ -51,13 +51,30 @@ Page({
     let _this = this;
     let userInfo = wx.getStorageSync('userInfo');
     let countType = this.data.countType;
+    let days = dateSubToDaysFun(this.data.startDate, this.data.endDate);
+    console.log('选择时间段天数：', days);
+    if(days > 7){ // 查询时间段不能大于7天
+      // 弹出提示信息框
+      wx.showModal({
+        title: '提示',
+        content: '查询时间段不可大于7天',
+        success (res) {
+          if (res.confirm) {
+            //
+          } else if (res.cancel) {
+            //
+          }
+        }
+      });
+      return;
+    }
     //
     wx.request({
       url: app.globalData.path + '/store/summaryUserReceive',
       dataType: 'json',
       data: {
         data: {
-          staffOpenId: wx.getStorageSync('openId'),
+          staffOpenId: app.globalData.openId,
           startDate: _this.data.startDate,
           endDate: _this.data.endDate,
           cardId: _this.data.cardId,
@@ -102,7 +119,7 @@ Page({
       dataType: 'json',
       data: {
         data: {
-          staffOpenId: wx.getStorageSync('openId'),
+          staffOpenId: app.globalData.openId,
           startDate: this.data.startDate,
           endDate: this.data.endDate,
           cardId: this.data.cardId,

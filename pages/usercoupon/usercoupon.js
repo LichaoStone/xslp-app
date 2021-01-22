@@ -22,6 +22,8 @@ Page({
     staffOpenId: null,
     one_1: 5, // 默认5个赞
     two_1: 0,
+    showDonate: false,
+    donateData: null
   },
   //
   select: {
@@ -49,6 +51,92 @@ Page({
     _this.data.showList = [];
     // 切换页签查询数据
     _this.getData();
+  },
+
+  // 关闭转赠提示
+  closeDonateDialog: function(){
+    this.setData({
+      showDonate: false
+    });
+  },
+
+  // 用户卡券转赠
+  userDonateFun: function(res){
+    //
+    let _this = this;
+    console.log('用户转赠卡券数据：', res);
+    let dataInfo = res.target.dataset;
+    dataInfo.type = '0'; // 转赠时验证
+    // 验证卡券状态
+    wx.request({
+      url: app.globalData.path + '/store/checkCouponState',
+      dataType: 'json',
+      data: {
+        data: dataInfo
+      },
+      success: function(resp){
+        console.log('验证卡券状态结果：', resp);
+        let data = resp.data;
+        if('200' == data.code){
+          // 卡券转赠提示框
+          _this.setData({
+            donateData: dataInfo,
+            showDonate: true
+          });
+        } else {
+          // 弹出错误框
+          wx.showModal({
+            title: '异常提示',
+            content: data.message,
+            success: function (res) {
+              if (res.confirm) {
+                //
+              } else if (res.cancel) {
+                //
+              }
+            }
+          });
+        }
+      }
+    });
+  },
+
+  // 拉起分享
+  onShareAppMessage: function(res) {
+    //
+    console.log('转赠卡券数据：', res);
+    // 关闭提示窗
+    this.closeDonateDialog();
+    //
+    let shareObj = {
+      title: '好友分享您小程序',
+      imageUrl: '../../image/2.png',
+      path: '/pages/index/index'
+    };
+    //
+    if('menu' == res.from){
+      console.log('转发来自右上角事件');
+    } else if('button' == res.from){
+      //
+      let donateData = this.data.donateData;
+      console.log('转发来自页面button事件：', res);
+      console.log('转发数据：', donateData);
+      // 不管是否分享成功，都保存一条数据
+      wx.request({
+        url: app.globalData.path + '/store/saveUserDonateInfo',
+        dataType: 'json',
+        data: {
+          data: donateData
+        },
+        success: function(res){
+          console.log('保存转赠信息返回：', res);
+        }
+      });
+      // pfToxxBqoYnQmfsN0aTVrSiAIIBk,GIFT,中胜石油洗车券,15010209941,2020-11-20,1
+      shareObj.title = '好友赠送一张卡券';
+      shareObj.path = '/pages/index/index?sharepara=' + JSON.stringify(donateData);
+    }
+    return shareObj;
   },
 
   // 评价文本域输入函数
@@ -103,7 +191,7 @@ Page({
         data: {
           type: type,
           appId: app.globalData.appId,
-          openId: wx.getStorageSync('openId'),
+          openId: app.globalData.openId,
           size: querySize
         }
       },
@@ -263,7 +351,7 @@ Page({
       data: {
         data: {
           appId: app.globalData.appId,
-          openId: wx.getStorageSync('openId'),
+          openId: app.globalData.openId,
           staffOpenId: this.data.staffOpenId,
           couponCode: this.data.couponCode,
           serviceQuality: quality,
@@ -322,6 +410,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //
+    wx.showShareMenu({
+      withShareTicket: true //禁止好友多选
+    });
     let _this = this;
     console.log('扫码评价参数：', options);
     let tabType = options.currentTab;

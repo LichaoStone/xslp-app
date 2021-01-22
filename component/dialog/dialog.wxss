@@ -76,7 +76,7 @@
 }
 
 .h-txt {
-  padding-top: 30rpx;
+  padding-top: 10rpx;
   font-size: 40rpx;
 }
 

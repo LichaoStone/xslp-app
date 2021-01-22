@@ -3,7 +3,7 @@
 App({
   //
   globalData: {
-    path: 'https://snmlhui.cn',
+    path: 'https://taiduoquan.cn',
     // path: 'https://moliho.natapp4.cc',
     userInfo: null,
     appId: 'wxeed97f5cf2cc1850',
@@ -113,6 +113,7 @@ App({
             console.log('登录返回数据：', rsp);
             let data = rsp.data;
             //
+            wx.setStorageSync('openId', data.openid);
             wx.setStorageSync('sessionKey', data.session_key);
           }
         });
@@ -130,6 +131,7 @@ App({
         //
         console.log('getOpenid信息：',res);
         // 同步保存部分用户信息
+        this.globalData.openId = res.result.openid;
         wx.setStorageSync('openId', res.result.openid);
         wx.setStorageSync('appId', res.result.appid);
         wx.setStorageSync('unionId', res.result.unionid);

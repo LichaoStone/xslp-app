@@ -1,5 +1,5 @@
 // pages/cardcode/cardcode.js
-const { formatTime, getDate } = require("../../utils/util");
+const { formatTime, getAddDate } = require("../../utils/util");
 
 const app = getApp();
 
@@ -12,7 +12,7 @@ Page({
     paraData: null,
     cardName: '',
     startDate: formatTime(new Date()),
-    endDate: getDate(6),
+    endDate: getAddDate(6),
     cardDate: formatTime(new Date()),
     dateStr: formatTime(new Date()),
     imgbase64: null,
@@ -41,6 +41,11 @@ Page({
     console.info('请求固码参数：', dataInfo);
     dataInfo.endDate = _this.data.cardDate;
     dataInfo.userCode = userInfo.userCode;
+    // 显示遮罩层
+    wx.showLoading({
+      title: '数据加载中...',
+      mask: true
+    });
     //
     wx.request({
       url: app.globalData.path + '/store/createFixedCodeFun',
@@ -53,6 +58,16 @@ Page({
         //
         _this.setData({
           imgbase64: res.data.data
+        });
+        // 隐藏遮罩层
+        wx.hideLoading({
+          success: (res) => {},
+        });
+      },
+      fail: function(){
+        // 隐藏遮罩层
+        wx.hideLoading({
+          success: (res) => {},
         });
       }
     });

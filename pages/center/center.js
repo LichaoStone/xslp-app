@@ -10,6 +10,7 @@ Page({
     menuList: null,
     coupons: 0,
     nickName: null,
+    userPhone: null,
     avatarUrl: '../../image/head.png',
     mShow: true,
     showLogin: true, // 默认显示登录按钮
@@ -126,7 +127,7 @@ Page({
       data: {
         data: {
           appId: app.globalData.appId,
-          openId: wx.getStorageSync('openId')
+          openId: app.globalData.openId
         }
       },
       success: function(res){
@@ -155,6 +156,7 @@ Page({
               //
               that.setData({
                 nickName: user.nickName,
+                userPhone: user.userPhone,
                 avatarUrl: user.avatarUrl,
                 coupons: couponNum,
                 showLogin: false
@@ -242,7 +244,7 @@ Page({
     if(res.detail.userInfo){
       //
       let appId = app.globalData.appId;
-      let openId = wx.getStorageSync('openId');
+      let openId = app.globalData.openId;
       let unionId = wx.getStorageSync('unionId');
       //
       wx.request({
@@ -328,7 +330,7 @@ Page({
       data: {
         data: {
           appId: app.globalData.appId,
-          openId: wx.getStorageSync('openId'),
+          openId: app.globalData.openId,
           sessionKey: wx.getStorageSync('sessionKey'),
           encryptedData: data.encryptedData,
           iv: data.iv

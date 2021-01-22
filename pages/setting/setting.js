@@ -14,9 +14,13 @@ Page({
     listData:[],
     radioVal: 10, // radio默认为动态码-0
     items: [
-      {value: '10', name: '发券员', checked: 'true'},
-      {value: '12', name: '核销员'}
-    ]
+      {value: '10', name: '发券员', checked: true},
+      {value: '12', name: '核销员'},
+    ],
+    storeCode: null,
+    storeName: null,
+    storeAry: [],
+    storeIdx: 0
   },
 
   //
@@ -29,22 +33,34 @@ Page({
     });
   },
 
-  // radio点击事件
-  radioChange(e) {
+  // 授权员工门店选择
+  bindPickerChange: function (e) {
+    console.log('门店选择：', this.data.storeAry[e.detail.value]);
+    //
+    this.setData({
+      storeCode: this.data.storeAry[e.detail.value].storeCode,
+      storeName: this.data.storeAry[e.detail.value].storeName,
+      storeIdx: e.detail.value
+    })
+   },
+
+  // checkbox点击事件
+  checkboxChange(e) {
     //
     let _this = this;
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
-    //
-    let val = e.detail.value;
-    //
-    const items = this.data.items
-    for (let i = 0, len = items.length; i < len; ++i) {
-      items[i].checked = items[i].value === e.detail.value
+    console.log('checkbox发生change事件，携带value值为：', e.target.dataset.index)
+    let items = this.data.items;
+    let index = e.target.dataset.index;
+    let selected = e.target.dataset.checks ? false : true;
+    for (let i = 0, lenI = items.length; i < lenI; ++i) {
+      if(index == items[i].value){
+        items[i].checked = selected;
+        break;
+      }
     }
     //
     _this.setData({
-      radioVal: val,
-      items: items
+      items
     });
   },
 
@@ -53,61 +69,45 @@ Page({
     //
     let _this = this;
     //
-    wx.request({
-      url: app.globalData.path + '/store/findApletUser',
-      dataType: 'json',
-      data: {
+    if(this.data.userPhone){
+      //
+      wx.request({
+        url: app.globalData.path + '/store/findApletUser',
+        dataType: 'json',
         data: {
-          appId: app.globalData.appId,
-          userPhone: this.data.userPhone
-        }
-      },
-      success: function(res) {
-        console.log('根据手机查询返回结果：', res);
-        let dataInfo = res.data;
-        //
-        if(dataInfo){
+          data: {
+            appId: app.globalData.appId,
+            userPhone: this.data.userPhone
+          }
+        },
+        success: function(res) {
+          console.log('根据手机查询返回结果：', res);
+          let dataInfo = res.data;
           //
-          _this.setData({
-            showFalg: false,
-            tabShow: true,
-            userInfo: dataInfo
-          });
-          //
-          // let sysmenuList = dataInfo.sysMenuList;
-          // let userMenuList = dataInfo.menuList;
-          // // 
-          // if(userMenuList && userMenuList.length > 0){
-          //   // 系统菜单
-          //   for (let idx_i = 0; idx_i < sysmenuList.length; idx_i++) {
-          //     const sysEle = sysmenuList[idx_i];
-          //     // 用户菜单
-          //     for (let idx_j = 0; idx_j < userMenuList.length; idx_j++) {
-          //       const userEle = userMenuList[idx_j];
-          //       if(userEle.id == sysEle.id){
-          //         sysEle.checked = true;
-          //       }
-          //     }
-          //   }
-          // }
-          // console.log('菜单数组内容：', sysmenuList);
-          //
-        } else {
-          // 弹出提示信息框
-          wx.showModal({
-            title: '异常提示',
-            content: '没有查询到用户信息！',
-            success (res) {
-              if (res.confirm) {
-               // do some
-              } else if (res.cancel) {
+          if(dataInfo){
+            //
+            _this.setData({
+              showFalg: false,
+              tabShow: true,
+              userInfo: dataInfo
+            });
+          } else {
+            // 弹出提示信息框
+            wx.showModal({
+              title: '异常提示',
+              content: '没有查询到用户信息！',
+              success (res) {
+                if (res.confirm) {
                 // do some
+                } else if (res.cancel) {
+                  // do some
+                }
               }
-            }
-          });
+            });
+          }
         }
-      }
-    })
+      })
+    }
   },
 
   // 查询成员列表
@@ -138,11 +138,81 @@ Page({
     })
   },
 
+  // 查询门店列表
+  searchStoreFun: function(){
+    //
+    let _this = this;
+    //
+    wx.request({
+      url: app.globalData.path + '/store/queryStoreList',
+      dataType: 'json',
+      data: {
+        data: {
+          appId: app.globalData.appId
+        }
+      },
+      success: function(res) {
+        console.log('查询门店返回结果：', res);
+        let dataInfo = res.data;
+        let storeAry = [];
+        //
+        if(dataInfo){
+          //
+          dataInfo.forEach(element => {
+            storeAry.push(element.storeName);
+          });
+          //
+          _this.setData({
+            storeAry: dataInfo
+          });
+        }
+      }
+    })
+  },
+
   // 权限菜单授权
   menuAuthorizeFun: function(e){
     //
     console.log('授权用户菜单：', e);
     let userOpenId = e.target.dataset.openid;
+    //
+    let radioVal = [];
+    let items = this.data.items;
+    for (let i = 0, lenI = items.length; i < lenI; ++i) {
+      if(true == items[i].checked){
+        radioVal.push(items[i].value);
+      }
+    }
+    //
+    if(radioVal.length == 0){
+      // 弹出提示信息框
+      wx.showModal({
+        title: '错误提示',
+        content: '请选择用户权限！',
+        success (res) {
+          if (res.confirm) {
+            
+          } else if (res.cancel) {
+            
+          }
+        }
+      });
+      return;
+    }
+    // 发券与核销都勾选，则配置双权限
+    if(radioVal.length == 1){
+      radioVal = radioVal[0];
+    } else if(radioVal.length == 2){
+      radioVal = '13'; //发券核销双权限
+    }
+    console.log('权限选择：', radioVal);
+    //
+    if(!this.data.storeName){
+      this.setData({
+        storeName: this.data.storeAry[0]
+      });
+    }
+    console.log('门店选择：', this.data.storeName);
     //
     wx.request({
       url: app.globalData.path + '/store/menuAuthorize',
@@ -151,7 +221,9 @@ Page({
         data: {
           appId: app.globalData.appId,
           openId: userOpenId,
-          radioVal: this.data.radioVal
+          radioVal: radioVal,
+          storeCode: this.data.storeCode,
+          storeName: this.data.storeName
         }
       },
       success: function(res){
@@ -164,13 +236,9 @@ Page({
             content: '授权用户菜单成功！',
             success (res) {
               if (res.confirm) {
-                wx.switchTab({
-                  url: '../center/center',
-                })
+               
               } else if (res.cancel) {
-                wx.switchTab({
-                  url: '../center/center',
-                })
+                
               }
             }
           });
@@ -181,13 +249,9 @@ Page({
             content: '授权用户菜单失败或用户菜单已授权！',
             success (res) {
               if (res.confirm) {
-                wx.switchTab({
-                  url: '../center/center',
-                })
+                
               } else if (res.cancel) {
-                wx.switchTab({
-                  url: '../center/center',
-                })
+                
               }
             }
           });
@@ -260,7 +324,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
+    //
     this.searchMemberFun();
+    //
+    this.searchStoreFun();
   },
 
   /**

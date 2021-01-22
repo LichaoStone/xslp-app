@@ -73,7 +73,7 @@ Page({
                 data: {
                   data: {
                     appId: app.globalData.appId,
-                    openId: wx.getStorageSync('openId'),
+                    openId: app.globalData.openId,
                     userCode: userCode,
                     cardName: cardName,
                     cardType: cardType,
@@ -91,7 +91,7 @@ Page({
                     data: {
                       data: {
                         appId: app.globalData.appId,
-                        openId: wx.getStorageSync('openId')
+                        openId: app.globalData.openId
                       }
                     },
                     success: function (res) {

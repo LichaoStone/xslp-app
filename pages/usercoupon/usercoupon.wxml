@@ -30,8 +30,13 @@
                 <view>{{item.beginDate}}</view> 
                 <view>{{item.endDate}}</view>
               </view>  
-              <view class="coupon-rig" data-cardId="{{item.cardId}}" data-code="{{item.code}}" bindtap="couponDetail">
-                <view class="t3 t"><text>详情</text></view>
+              <view class="coupon-rig">
+                <view class="t3 t">
+                  <text data-cardId="{{item.cardId}}" data-code="{{item.code}}" bindtap="couponDetail">详 情</text>
+                  <text data-cardId="{{item.cardId}}" data-cardcode="{{item.code}}"
+                    data-appId="{{item.appId}}" data-openId="{{item.openId}}" data-userCode="{{item.userCode}}"
+                    data-cardName="{{item.cardName}}" data-cardType="{{item.cardType}}" bindtap="userDonateFun">转 赠</text>
+                </view>
               </view>
             </view>
         </view>
@@ -121,5 +126,28 @@
       </view>
     </view>
   </modal>
+
+  <!-- 卡券转赠提示 -->
+  <view class="fadeIn" wx:if="{{showDonate}}">
+    <view class="weui-mask" bindtap="closeHalfDialog"></view>
+    <view class="weui-half-screen-dialog">
+      <view class="weui-half-screen-dialog__hd">
+        <view class="weui-half-screen-dialog__hd__side"></view>
+        <view class="weui-half-screen-dialog__hd__main">
+          <strong class="weui-half-screen-dialog__title">卡券转赠提示</strong>
+        </view>
+      </view>
+      <view class="weui-half-screen-dialog__bd">
+        <view class="weui-half-screen-dialog__desc">
+          您是否要将当前卡券赠送给其他好友？
+        </view>
+      </view>
+      <view class="weui-half-screen-dialog__ft">
+        <a class="weui-btn weui-btn_default" bindtap="closeDonateDialog">取 消</a>
+        <button class="weui-btn weui-btn_primary"  open-type="share">确 定</button>
+      </view>
+    </view>
+  </view>
+
 
 </view>

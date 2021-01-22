@@ -36,11 +36,25 @@
     <view class='title_text'>
       <text>权限选择:</text>
       <view class="page-section" style="padding-left: 20rpx;" wx:for="{{items}}" wx:key="index">
-        <radio-group bindchange="radioChange">
+        <checkbox-group bindchange="checkboxChange"  data-index="{{item.value}}" data-checks="{{item.checked}}">
           <label class="">
-            <radio value="{{item.value}}" checked="{{item.checked}}"/><text>{{item.name}}</text>
+            <checkbox data-index="{{item.value}}" value="{{item.value}}" checked="{{item.checked}}"/><text>{{item.name}}</text>
           </label>
-        </radio-group>
+        </checkbox-group>
+      </view>
+    </view>
+  </view>
+
+  <!-- 选择门店 -->
+  <view class="title">
+    <view class='title_text'>
+      <text>门店选择:</text>
+      <view class="page-section" style="padding-left: 0rpx;">
+        <view class="">
+          <picker bindchange="bindPickerChange" value="{{index}}" range="{{storeAry}}" range-key="{{'storeName'}}">
+            <input disabled="true" type="text" value="{{storeAry[storeIdx].storeName}}" class="store-input" placeholder="请选择员工所在门店"/>
+          </picker>
+        </view>
       </view>
     </view>
   </view>
@@ -52,24 +66,38 @@
 <!--权限列表-->
 <view hidden="{{tabShow}}">
     <view class="table">
-        <view class="tr bg-w" style="/*position:fixed;*/z-index:10;width:742rpx;">
-            <view class="th">昵称</view>
-            <view class="th-0">手机</view>
-            <view class="th-1">操作</view>
+        <view class="tr bg-w" style="height:2.5rem;z-index:10;width:742rpx;">
+            <view class="th"></view>
         </view>
-        <view style='/*padding-top:80rpx;*/'>
+        <view>
             <scroll-view scroll-y="true" style="height:850rpx;" bindscrolltolower="">
                 <block wx:for="{{listData}}" wx:key="index">
-                    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                  <view style="display: flex;"  wx:if="{{index % 2 == 0}}">
+                    <view class="tr bg-g">
                       <view class="td">{{item.nickName}}</view>
                       <view class="td-0">{{item.userPhone}}</view>
+                      <view class="td">{{item.storeName}}</view>
+                    </view>
+                    <view class="tr-0 bg-g">
+                      <view class="td-1">{{item.roleName}}</view>
+                    </view>
+                    <view class="tr-1 bg-g">
                       <view class="search-bar__cancel-btn td-1" data-openid="{{item.openId}}" bindtap="delMemberFun">移 除</view>
                     </view>
-                    <view class="tr" wx:else>
+                  </view>
+                  <view style="display: flex;margin-top: 20rpx;margin-bottom: 20rpx;" wx:else>
+                    <view class="tr">
                       <view class="td">{{item.nickName}}</view>
                       <view class="td-0">{{item.userPhone}}</view>
+                      <view class="td">{{item.storeName}}</view>
+                    </view>
+                    <view class="tr-0">
+                      <view class="td-1">{{item.roleName}}</view>
+                    </view>
+                    <view class="tr-1">
                       <view class="search-bar__cancel-btn td-1" data-openid="{{item.openId}}" bindtap="delMemberFun">移 除</view>
                     </view>
+                  </view>
                 </block>
             </scroll-view> 
         </view>

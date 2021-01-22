@@ -66,11 +66,14 @@
 .coupon-left .t7{padding-left: 20rpx; padding-top: 130rpx; position: absolute; color: white; font-size: 25rpx;}
 .coupon-left .t8{padding-left: 20rpx; padding-top: 160rpx; position: absolute; color: white; font-size: 25rpx;}
 
-.coupon-rig{width: 260rpx;position: relative;text-align: center;}
-.coupon-rig .t{text-align: center}
+.coupon-rig{
+  position: relative;
+  padding-top: 20rpx;
+}
+.coupon-rig .t{display: flex;text-align: center}
 .coupon-rig .t1{font-size: 40rpx; padding: 30rpx 0 10rpx 0;}
 
-.coupon-rig .t3 text{font-size: 30rpx; background: #d85a5a; color: rgb(244, 247, 244); border-radius: 7rpx; padding: 5rpx 40rpx}
+.coupon-rig .t3 text{width: 100rpx; color: #52f157; border-radius: 7rpx;padding-left: 25rpx;}
 .coupon-rig .t4 {text-align: left;}
 .coupon-rig .t4 text{padding-left: 50rpx;position: absolute; color: #fff;top:60rpx; font-size: 45rpx;}
 
@@ -78,7 +81,7 @@
   /* z-index: 10; */
   position: absolute;
   /* padding-top: 90rpx; */
-  padding-left: 20rpx;
+  padding-left: 15rpx;
   font-size: 27rpx;
   color: #8c8989;
 }
@@ -133,13 +136,13 @@
 .sy-img {
   width: 220rpx;
   height: 70rpx;
-  margin-top: 15rpx;
+  /* margin-top: 15rpx; */
 }
 
 .end-img {
   width: 220rpx;
   height: 70rpx;
-  margin-top: 35rpx;
+  margin-top: 15rpx;
 }
 
 .cro {

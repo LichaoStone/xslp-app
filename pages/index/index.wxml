@@ -1,7 +1,6 @@
 <!--index.wxml-->
 <view class="mycontainer">
   <view class="gas_price">
-    <!-- <image class="image" src="../../image/zssy-1.jpg"></image> -->
     <swiper class='u-wrp-bnr' indicator-dots='true' autoplay='true' interval='3500' duration='1500' circular='true'>
       <block wx:for="{{bnrUrl}}" wx:key="bnrUrl" wx:for-index="index">
         <swiper-item>
@@ -11,11 +10,26 @@
     </swiper>
   </view>
   <view class="clear"></view>
-  <view class="gas_positon">
-    <view class="gas_title">
-      中胜石油<view class="right" bindtap="jumpStoreList">更多油站</view>
-    </view>
 
+  <view class="gas_positon" style="display:flex;height:150rpx;">
+    <view class="m-view-v" bindtap="showSynFun">
+      <image class="m-view" src="../../image/z.png"></image>
+      <view class="m-text">公司简介</view>
+    </view>
+    <view class="m-view-v" bindtap="linkStoreAppFun">  
+      <image class="m-view" src="../../image/s.png"></image>
+      <view class="m-text">自提商城</view>
+    </view>
+    <view class="m-view-v" bindtap="jumpStoreList">
+      <image class="m-view" src="../../image/b.png"></image>
+      <view class="m-text">油站导航</view>
+    </view>
+  </view>
+
+  <view class="gas_positon" hidden="{{showSyn}}">
+    <view class="gas_title">
+      中胜石油
+    </view>
     <view class="gas_des">
       <view>
         山东中胜石油化工有限公司自成立以来，始终以“一站式、家庭式”的亲情化服务为特色，
@@ -24,9 +38,51 @@
       </view>
     </view>
   </view>
+  <!-- 活动图片 -->
+  <view class="gas_positon">
+    <image class="hd-view" style="height:{{s_height}}" mode="scaleToFill" src="../../image/hd.jpg"></image>
+  </view>
+
+  <!-- 技术支持 -->
+  <view class="f-line" bindtap="showQrCodeFun">
+    <view class="l-line"></view>
+    <view class="t-line">技术支持</view>
+    <view class="r-line"></view>
+  </view>
+  <view class="f-line" hidden="{{showQrCode}}">
+    <view class="line-1"></view>
+    <view>
+      <image bindtap="imgOcrFun" class="qc-img" src="{{imgQrCodeSrc}}" data-src="{{imgQrCodeSrc}}"></image>
+    </view>
+    <view class="line-1"></view>
+  </view>
 
   <!-- 扫码核销组件 -->
   <v-dialog id="dialog" isShow="{{isShow}}" detail="{{detail}}"></v-dialog>
+
+  <!-- 授权手机组件 -->
+  <view class="fadeIn" wx:if="{{showPhone}}">
+    <view class="weui-mask" bindtap="closeHalfDialog"></view>
+    <view class="weui-half-screen-dialog">
+        <view class="weui-half-screen-dialog__hd">
+            <view class="weui-half-screen-dialog__hd__side">
+            </view>
+            <view class="weui-half-screen-dialog__hd__main">
+                <strong class="weui-half-screen-dialog__title">申请用户手机授权</strong>
+            </view>
+        </view>
+        <view class="weui-half-screen-dialog__bd">
+            <view class="weui-half-screen-dialog__desc">
+            如需正常使用小程序功能，请点击确定授权获取您的手机号码
+            </view>
+        </view>
+        <view class="weui-half-screen-dialog__ft">
+            <a class="weui-btn weui-btn_default" bindtap="closePhoneDialog">取 消</a>
+            <button class="weui-btn weui-btn_primary" bindtap="closePhoneDialog" 
+              open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">确 定</button>
+        </view>
+    </view>
+  </view>
 
   <!-- 授权昵称 -->
   <view class="fadeIn" wx:if="{{showHalf}}">
@@ -51,27 +107,63 @@
       </view>
   </view>
 
-  <!-- 授权手机组件 -->
-  <!-- <view class="fadeIn" wx:if="{{showHalf}}">
+  <!-- 授权地理位置 -->
+  <view class="fadeIn" wx:if="{{showLocation}}">
     <view class="weui-mask" bindtap="closeHalfDialog"></view>
     <view class="weui-half-screen-dialog">
       <view class="weui-half-screen-dialog__hd">
         <view class="weui-half-screen-dialog__hd__side"></view>
         <view class="weui-half-screen-dialog__hd__main">
-          <strong class="weui-half-screen-dialog__title">申请用户手机授权</strong>
+          <strong class="weui-half-screen-dialog__title">用户地理位置授权</strong>
         </view>
       </view>
       <view class="weui-half-screen-dialog__bd">
         <view class="weui-half-screen-dialog__desc">
-          如需正常使用小程序功能，请点击确定授权获取您的手机号码
+          需要获取您的地理位置，请确认授权，否则无法领取卡券
         </view>
       </view>
       <view class="weui-half-screen-dialog__ft">
-        <a class="weui-btn weui-btn_default" bindtap="closeHalfDialog">取 消</a>
-        <button class="weui-btn weui-btn_primary" bindtap="closeHalfDialog" open-type="getPhoneNumber"
-          bindgetphonenumber="getPhoneNumber">确 定</button>
+        <a class="weui-btn weui-btn_default" bindtap="closeLocationDialog">取 消</a>
+        <button class="weui-btn weui-btn_primary" bindtap="authorizeLocationFun">确 定</button>
       </view>
     </view>
-  </view> -->
+  </view>
 
+</view>
+
+<view>
+  <!-- 弹窗遮罩层 -->
+  <view wx:if="{{isShowCouponPopUp}}" class="popover-mask-layer"></view>
+  <!-- 优惠劵弹窗 //用hidden而不用wx:if原因是hidden条件不成立时候也会加载图片-->
+  <view hidden="{{!isShowCouponPopUp}}" class="coupon-pop-up" catchtouchmove="onPreventTouchMove" animation="{{animationData}}">
+    <view class="body">
+      <view class="mid-coupons">
+        <view class="content">
+          <scroll-view scroll-y="true">
+            <block>
+              <view class="row">
+                <view class="coupon">
+                  <view class="cp_left">
+                    <image src="{{headImage}}"></image>
+                  </view>
+                  <view class="mid">
+                    <view>您的好友赠送您一张卡券</view>
+                    <view>{{userDonate.couponName}}</view>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </scroll-view>
+        </view>
+        <view class="bottom-get-btn">
+          <view bindtap="getUserDonateCouponFun">领 取</view>
+        </view>
+      </view>
+      <view class="bottom-close-btn">
+        <view class="bottom-close-btn-child" bindtap="closeTheCouponPopUp">
+          <image src="{{closeBtnImages}}"></image>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

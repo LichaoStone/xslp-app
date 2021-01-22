@@ -4,6 +4,7 @@
         <view class='input-wrapper'></view>
         <view class="head-s">
             <view class="h-txt">{{cardName}}</view>
+            <view class="h-txt">{{storeName}}</view>
         </view>
         <view class='g-line'></view>
 

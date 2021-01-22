@@ -86,7 +86,7 @@ Page({
       data: {
         data: {
           appId: app.globalData.appId,
-          openId: wx.getStorageSync('openId'),
+          openId: app.globalData.openId,
           sessionKey: wx.getStorageSync('sessionKey'),
           encryptedData: data.encryptedData,
           iv: data.iv
@@ -143,7 +143,7 @@ Page({
       data: {
         data: {
           appId: app.globalData.appId,
-          openId: wx.getStorageSync('openId'),
+          openId: app.globalData.openId,
           cardId: cardId,
           cardName: cardName,
           staffOpenId: staffOpenId,
@@ -206,7 +206,7 @@ Page({
       data: {
         data: {
           appId: app.globalData.appId,
-          openId: wx.getStorageSync('openId')
+          openId: app.globalData.openId
         }
       },
       success: function(res){
@@ -258,7 +258,7 @@ Page({
       data: {
         data: {
           appId: app.globalData.appId,
-          openId: wx.getStorageSync('openId'),
+          openId: app.globalData.openId,
           cardId: cardId,
           cardName: cardName,
           cardType: cardType

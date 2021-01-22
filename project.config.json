@@ -5,7 +5,7 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": false,
     "postcss": true,
@@ -22,16 +22,20 @@
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
-    "useMultiFrameRuntime": false,
+    "useMultiFrameRuntime": true,
     "useApiHook": true,
+    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
     },
+    "enableEngineNative": false,
+    "bundle": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true
@@ -39,7 +43,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.12.2",
   "appid": "wxeed97f5cf2cc1850",
-  "projectname": "xslp-store-1.2",
+  "projectname": "xslp-1.2-zs",
   "debugOptions": {
     "hidedInDevtools": []
   },
@@ -61,9 +65,9 @@
     "miniprogram": {
       "list": [
         {
-          "name": "扫码评价",
-          "pathName": "pages/usercoupon/usercoupon",
-          "query": "currentTab=1",
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "para=pfToxxBqoYnQmfsN0aTVrSiAIIBk,GIFT,中胜石油洗车券,15010209941,2021-01-21,1",
           "scene": 1047
         }
       ]

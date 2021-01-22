@@ -22,7 +22,7 @@ Page({
   createClearCodeFun: function(ept){
     //
     let reqData = ept.target.dataset;
-    reqData.openId = wx.getStorageSync('openId');
+    reqData.openId = app.globalData.openId;
     reqData.appId = app.globalData.appId;
     console.log('生成线下核销码：', ept);
     // 请求后台生成核销小程序码

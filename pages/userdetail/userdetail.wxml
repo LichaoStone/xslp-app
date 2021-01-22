@@ -31,13 +31,13 @@
   <view class="info">
     <view class="in-title">车辆信息</view>
     <view class="in-info">
-      <view class="nick">车型</view>
-      <view class="txxt">宝马-F80</view>
-    </view>
-    <view class="in-info">
       <view class="nick">车牌</view>
-      <view class="txxt">沪A·12345</view>
+      <view class="txxt" wx:if="{{!userInfo.carCode}}">_无_</view>
+      <view class="txxt" wx:else>{{userInfo.carCode}}</view>
     </view>
   </view>
   <view class="clear"></view>
+  <!-- <view style="margin-top: 20rpx;">
+    <button class="btn-view" bindtap="updateInfoFun">确认修改</button>
+  </view> -->
 </view>

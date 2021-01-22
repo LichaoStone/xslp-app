@@ -3,8 +3,13 @@
   <view class='userContent'>
     <image class="header-avatar" src="{{avatarUrl}}" ></image>
     <view class="txt">
-      <text bindtap="userDetailFun" class="header-nickname" wx:if="{{nickName}}">{{nickName}}</text>
-      <text class="header-nickname" wx:else="{{!nickName}}">游客</text>
+      <view wx:if="{{nickName}}">
+        <text bindtap="userDetailFun" class="header-nickname">{{nickName}}</text>
+        <text bindtap="userDetailFun" class="header-nickname">{{userPhone}}</text>
+      </view>
+      <view wx:else>
+        <text class="header-nickname">游客</text>
+      </view>
     </view>
     <view class="registere" style="display:{{showLogin?'flex':'none'}}" bindtap="loginFun">
       <text class="header-nickname">注册/登录</text>
