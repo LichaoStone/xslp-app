@@ -47,6 +47,14 @@ Page({
     return false;
   },
 
+  // 用户点击手机授权取消
+  closePhoneDialog: function() {
+    //
+    this.setData({
+      showPhone: false
+    });
+  },
+
   // 隐藏或显示公司简介
   showSynFun: function(){
     this.setData({
@@ -138,7 +146,7 @@ Page({
       url: app.globalData.path + '/store/updateUserDonateInfo',
       dataType: 'json',
       data: {
-        data: this.data.userDonate
+        data: userDonateInfo
       },
       success: function(res){
         console.log('修改转赠信息返回：', res);
@@ -154,12 +162,34 @@ Page({
     });
     //
     let _this = this;
+    let userDonate = this.data.userDonate;
+    if(null == userDonate){
+      // 弹出提示信息框
+      wx.showModal({
+        title: '异常提示',
+        content: '卡券领取异常',
+        success (res) {
+          if (res.confirm) {
+            console.log('领取卡券领取异常，用户点击确定');
+            wx.switchTab({
+              url: '../index/index'
+            })
+          } else if (res.cancel) {
+            console.log('领取卡券领取异常，用户点击取消');
+            wx.switchTab({
+              url: '../index/index'
+            })
+          }
+        }
+      });
+      return;
+    }
     // 请求后台服务
     wx.request({
       url: app.globalData.path + '/store/getUserDonateCoupon',
       dataType: 'json',
       data: {
-        data: this.data.userDonate
+        data: userDonate
       },
       success: function(res){
         console.log('转赠卡券信息返回：', res);
@@ -192,23 +222,8 @@ Page({
         let openId = app.globalData.openId;
         // 用户openId为null
         if(!openId){
-          // 弹出提示信息框
-          wx.showModal({
-            title: '异常提示',
-            content: '用户ID为空，请重新打开小程序',
-            success (res) {
-              if (res.confirm) {
-                wx.switchTab({
-                  url: '../index/index'
-                })
-              } else if (res.cancel) {
-                wx.switchTab({
-                  url: '../index/index'
-                })
-              }
-            }
-          });
-          return;
+          app.getOpenid();
+          openId = app.globalData.openId;
         }
         // 加载领取卡券显示
         wx.addCard({
@@ -461,6 +476,7 @@ Page({
 
   // 查询用户信息
   findUserInfo: function(opt){
+    console.log('findUserInfo=>查询用户信息：', opt);
     let that = this;
     // 
     wx.request({
@@ -481,7 +497,7 @@ Page({
             if(!user.nickName){
                 //
               that.setData({
-                  showHalf: true
+                showHalf: true
               });
             } else if(!user.userPhone){
               // 拉起授权手机号
@@ -493,7 +509,11 @@ Page({
                 that.jumpCouponClearFun(opt);
             }
           } else {
-            // 用户不存在，跳转首页
+            // 用户不存在，拉起授权昵称，保存用户信息
+            that.setData({
+              showHalf: true
+            });
+            //
             wx.switchTab({
                 url: '../index/index'
             });
@@ -769,25 +789,7 @@ Page({
             console.log('加载卡券数据串：', res);
             //
             if(!openId){
-              // 弹出提示信息框
-              wx.showModal({
-                title: '异常提示',
-                content: '用户ID为空，请重新打开小程序',
-                success (res) {
-                  if (res.confirm) {
-                    console.log('领取卡券领取异常，用户点击确定');
-                    wx.switchTab({
-                      url: '../index/index'
-                    })
-                  } else if (res.cancel) {
-                    console.log('领取卡券领取异常，用户点击取消');
-                    wx.switchTab({
-                      url: '../index/index'
-                    })
-                  }
-                }
-              });
-              return;
+              app.getOpenid();
             }
             // 显示领取卡券
             wx.addCard({
@@ -888,28 +890,37 @@ Page({
       let openId = app.globalData.openId;
       let unionId = wx.getStorageSync('unionId');
       //
-      wx.request({
-        url: app.globalData.path + '/store/addAppletUserInfo',
-        dataType: 'json',
-        data: {
+      if(!openId){
+        app.getOpenid();
+        openId = app.globalData.openId;
+      }
+      //
+      setTimeout(function(){
+        //
+        wx.request({
+          url: app.globalData.path + '/store/addAppletUserInfo',
+          dataType: 'json',
           data: {
-            openId: openId,
-            appId: appId,
-            unionId: unionId,
-            userInfo: res.detail.userInfo
+            data: {
+              openId: openId,
+              appId: appId,
+              unionId: unionId,
+              userInfo: res.detail.userInfo
+            }
+          },
+          success: function(res) {
+            console.info('更新用户信息：', res);
+            // 关闭授权窗口
+            _this.closeHalfDialog();
+            // 拉起确认手机授权
+            setTimeout(function(){
+              _this.setData({
+                showPhone: true
+              });
+            }, 1200);
           }
-        },
-        success: function(res) {
-          console.info('更新用户信息：', res);
-          // // 关闭授权窗口
-          _this.closeHalfDialog();
-          //
-          setTimeout(function(){
-            // 返回成功，查询可核销的卡券
-            _this.jumpCouponClearFun(_this.data.paraData);
-          }, 500);
-        }
-      });
+        });
+      }, 300);
     }
   },
 
@@ -918,10 +929,6 @@ Page({
     //
     console.log('拉起手机授权框：', e);
     var that = this;
-    //
-    that.setData({
-        showHalf: false
-    });
     //
     if (e.detail.errMsg.indexOf('ok') != -1) {
       //
@@ -940,15 +947,15 @@ Page({
           app.userLogin();
           // 拉起确认手机授权
           that.setData({
-              showHalf: true
+            showPhone: true
           });
         }
       });
-      } else if(e.detail.errMsg.indexOf('fail') != -1){
-        that.setData({
-          showHalf: false
-        });
-      }
+    } else if(e.detail.errMsg.indexOf('fail') != -1){
+      that.setData({
+        showPhone: false
+      });
+    }
   },
 
   // 更新用户手机号
@@ -976,8 +983,11 @@ Page({
               // 保存全局
               wx.setStorageSync('phone', data.phoneNumber);
             }
-            // 返回成功，查询可核销的卡券
-            that.jumpCouponClearFun(that.data.paraData);
+            //
+            setTimeout(function(){
+              // 返回成功，查询可核销的卡券
+              that.jumpCouponClearFun(that.data.paraData);
+            }, 500);
         }
       });
   },

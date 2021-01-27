@@ -96,7 +96,7 @@
           </view>
           <view class="weui-half-screen-dialog__bd">
               <view class="weui-half-screen-dialog__desc">
-              如需正常使用小程序功能，请点击确定授权获取您的昵称，性别，地理位置
+              如需正常使用小程序功能，请点击确定授权获取您的昵称，性别
               </view>
           </view>
           <view class="weui-half-screen-dialog__ft">

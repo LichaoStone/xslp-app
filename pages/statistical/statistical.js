@@ -104,6 +104,7 @@ Page({
     //
     let _this = this;
     let s_data = this.data.listData;
+    let staffOpenId = app.globalData.openId;
     let userInfo = wx.getStorageSync('userInfo');
     // 是搜索时清空列表数据
     if(0 == type) {
@@ -113,39 +114,46 @@ Page({
         size: 0
       });
     }
+    // 如果用户OpenId为null
+    if(!staffOpenId){
+      app.getOpenid();
+    }
     //
-    wx.request({
-      url: app.globalData.path + '/store/summaryStaffCoupons',
-      dataType: 'json',
-      data: {
+    setTimeout(function(){
+      //
+      wx.request({
+        url: app.globalData.path + '/store/summaryStaffCoupons',
+        dataType: 'json',
         data: {
-          staffOpenId: app.globalData.openId,
-          startDate: this.data.startDate,
-          endDate: this.data.endDate,
-          cardId: this.data.cardId,
-          userCode: userInfo.userCode,
-          countType: this.data.countType,
-          size: this.data.size,
-          num: 10
-        }
-      },
-      success: function(res){
-        console.log('查询卡券明细返回结果：', res);
-        //
-        let dataList = res.data.data;
-        if(null != dataList && dataList.length > 0){
+          data: {
+            staffOpenId: app.globalData.openId,
+            startDate: _this.data.startDate,
+            endDate: _this.data.endDate,
+            cardId: _this.data.cardId,
+            userCode: userInfo.userCode,
+            countType: _this.data.countType,
+            size: _this.data.size,
+            num: 10
+          }
+        },
+        success: function(res){
+          console.log('查询卡券明细返回结果：', res);
           //
-          dataList.forEach(d => {
-            s_data.push(d);
-          });
-          //
-          _this.setData({
-            listData: s_data,
-            size: _this.data.size + 10
-          });
+          let dataList = res.data.data;
+          if(null != dataList && dataList.length > 0){
+            //
+            dataList.forEach(d => {
+              s_data.push(d);
+            });
+            //
+            _this.setData({
+              listData: s_data,
+              size: _this.data.size + 10
+            });
+          }
         }
-      }
-    })
+      });
+    }, 500);
   },
 
   // 表格滑到底触发
