@@ -247,6 +247,11 @@ Page({
       let openId = app.globalData.openId;
       let unionId = wx.getStorageSync('unionId');
       //
+      if(!openId){
+        app.getOpenid();
+        openId = app.globalData.openId;
+      }
+      //
       wx.request({
         url: app.globalData.path + '/store/addAppletUserInfo',
         dataType: 'json',
