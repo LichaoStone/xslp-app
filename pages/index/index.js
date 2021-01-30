@@ -282,9 +282,10 @@ Page({
           },
           cancel: function(res){
             console.log('====关闭到首页====');
-            _this.onHide();
             //
             _this.revertDonateInfoStateFun();
+            //
+            _this.onHide();
           }
         });
       }

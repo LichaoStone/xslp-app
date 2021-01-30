@@ -131,6 +131,7 @@ Component({
                     //
                     console.log('调用卡券核销接口返回结果：', res);
                     let code = res.data.code;
+                    let message = res.data.message;
                     // 核销成功
                     if ('200' == code) {
                         // 用户核销卡券成功，弹出提示信息框
@@ -150,7 +151,7 @@ Component({
                         // 用户核销卡券失败，弹出提示信息框
                         wx.showModal({
                             title: '失败提示',
-                            content: '用户卡券核销失败，请联系管理员',
+                            content: message == null ? '用户卡券核销失败，请联系管理员' : message,
                             success(res) {
                                 if (res.confirm) {
                                     //
