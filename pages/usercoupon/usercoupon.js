@@ -133,6 +133,7 @@ Page({
         }
       });
       // pfToxxBqoYnQmfsN0aTVrSiAIIBk,GIFT,中胜石油洗车券,15010209941,2020-11-20,1
+      console.log('卡券转赠参数：', JSON.stringify(donateData));
       shareObj.title = '好友赠送一张卡券';
       shareObj.path = '/pages/index/index?sharepara=' + JSON.stringify(donateData);
     }

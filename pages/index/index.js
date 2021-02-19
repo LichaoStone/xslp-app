@@ -288,8 +288,6 @@ Page({
             console.log('====关闭到首页====');
             //
             _this.revertDonateInfoStateFun();
-            //
-            _this.onHide();
           }
         });
       }
@@ -299,18 +297,20 @@ Page({
   // 没有点击领取，则还原数据状态
   revertDonateInfoStateFun: function(){
     //
-    let _this = this;
-    // 没有领取，还原数据状态
-    wx.request({
-      url: app.globalData.path + '/store/updateUserDonateInfoState',
-      dataType: 'json',
-      data: {
-        data: _this.data.userDonate
-      },
-      success: function(res){
-        console.log('还原转赠信息返回：', res);
-      }
-    });
+    let userDonateInfo = this.data.userDonate
+    if(userDonateInfo){
+      // 没有领取，还原数据状态
+      wx.request({
+        url: app.globalData.path + '/store/updateUserDonateInfoState',
+        dataType: 'json',
+        data: {
+          data: userDonateInfo
+        },
+        success: function(res){
+          console.log('还原转赠信息返回：', res);
+        }
+      });
+    }
   },
 
   // 销毁前会执行
