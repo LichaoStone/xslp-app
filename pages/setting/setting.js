@@ -19,6 +19,7 @@ Page({
     ],
     storeCode: null,
     storeName: null,
+    serialNo: null,
     storeAry: [],
     storeIdx: 0
   },
@@ -30,6 +31,13 @@ Page({
     //
     _this.setData({
       userPhone: e.detail.value
+    });
+  },
+  //
+  inputSerialNoFun: function(e){
+    console.log('输入设备号：', e.detail.value);
+    this.setData({
+      serialNo: e.detail.value
     });
   },
 
@@ -154,13 +162,8 @@ Page({
       success: function(res) {
         console.log('查询门店返回结果：', res);
         let dataInfo = res.data;
-        let storeAry = [];
         //
         if(dataInfo){
-          //
-          dataInfo.forEach(element => {
-            storeAry.push(element.storeName);
-          });
           //
           _this.setData({
             storeAry: dataInfo
@@ -190,11 +193,7 @@ Page({
         title: '错误提示',
         content: '请选择用户权限！',
         success (res) {
-          if (res.confirm) {
-            
-          } else if (res.cancel) {
-            
-          }
+          // do someing
         }
       });
       return;
@@ -223,7 +222,8 @@ Page({
           openId: userOpenId,
           radioVal: radioVal,
           storeCode: this.data.storeCode,
-          storeName: this.data.storeName
+          storeName: this.data.storeName,
+          serialNo: this.data.serialNo
         }
       },
       success: function(res){
@@ -234,26 +234,14 @@ Page({
           wx.showModal({
             title: '成功提示',
             content: '授权用户菜单成功！',
-            success (res) {
-              if (res.confirm) {
-               
-              } else if (res.cancel) {
-                
-              }
-            }
+            success (res) {}
           });
         } else {
           // 弹出提示信息框
           wx.showModal({
             title: '异常提示',
             content: '授权用户菜单失败或用户菜单已授权！',
-            success (res) {
-              if (res.confirm) {
-                
-              } else if (res.cancel) {
-                
-              }
-            }
+            success (res) {}
           });
         }
       }

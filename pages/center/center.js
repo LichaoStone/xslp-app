@@ -96,11 +96,11 @@ Page({
     });
   },
 
-  // 配置门店员工菜单
-  staffSettingFun(){
+  // 配置门店设备
+  serialSettingFun(){
     //
     wx.navigateTo({
-      url: '../staff/staff'
+      url: '../serial/serial'
     });
   },
 

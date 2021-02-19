@@ -58,9 +58,20 @@
       </view>
     </view>
   </view>
+  <!-- 设备编号 -->
+  <view class="title">
+    <view class='title_text'>
+      <text>设备编号:</text>
+      <view class="page-section" style="padding-left: 0rpx;">
+        <view class="">
+          <input type="text" class="store-input" bindinput="inputSerialNoFun" placeholder="输入设备编号"/>
+        </view>
+      </view>
+    </view>
+  </view>
 
   <!-- 授权菜单 -->
-  <button class="subtn" bindtap="menuAuthorizeFun" data-openid="{{userInfo.openId}}">授权菜单</button>
+  <button class="subtn" bindtap="menuAuthorizeFun" data-openid="{{userInfo.openId}}">确认授权</button>
 </view>
 
 <!--权限列表-->
@@ -74,9 +85,10 @@
                 <block wx:for="{{listData}}" wx:key="index">
                   <view style="display: flex;"  wx:if="{{index % 2 == 0}}">
                     <view class="tr bg-g">
-                      <view class="td">{{item.nickName}}</view>
-                      <view class="td-0">{{item.userPhone}}</view>
-                      <view class="td">{{item.storeName}}</view>
+                      <view class="td">昵称：{{item.nickName}}</view>
+                      <view class="td-0">电话：{{item.userPhone}}</view>
+                      <view class="td">门店：{{item.storeName}}</view>
+                      <view class="td">设备：{{item.serialno?item.serialno:'无'}}</view>
                     </view>
                     <view class="tr-0 bg-g">
                       <view class="td-1">{{item.roleName}}</view>
@@ -87,9 +99,10 @@
                   </view>
                   <view style="display: flex;margin-top: 20rpx;margin-bottom: 20rpx;" wx:else>
                     <view class="tr">
-                      <view class="td">{{item.nickName}}</view>
-                      <view class="td-0">{{item.userPhone}}</view>
-                      <view class="td">{{item.storeName}}</view>
+                      <view class="td">昵称：{{item.nickName}}</view>
+                      <view class="td-0">电话：{{item.userPhone}}</view>
+                      <view class="td">门店：{{item.storeName}}</view>
+                      <view class="td">设备：{{item.serialno?item.serialno:'无'}}</view>
                     </view>
                     <view class="tr-0">
                       <view class="td-1">{{item.roleName}}</view>

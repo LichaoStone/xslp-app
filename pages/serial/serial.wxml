@@ -1,0 +1,116 @@
+<!--pages/serial/serial.wxml-->
+<view class="wxapi_container">
+  <!-- 选择门店 -->
+  <view class="title">
+    <view class='title_text'>
+      <text>门店选择:</text>
+      <view class="page-section" style="padding-left: 0rpx;">
+        <view class="">
+          <picker bindchange="bindPickerChange" value="{{index}}" range="{{storeAry}}" range-key="{{'storeName'}}">
+            <input disabled="true" type="text" value="{{storeAry[storeIdx].storeName}}" class="store-input" placeholder="请选择门店"/>
+          </picker>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 新增门店设备配置 -->
+  <view hidden="{{hidenForm}}">
+    <view class="tr bg-w" style="height:2.5rem;z-index:10;width:auto;">
+        <view class="th">新增设备配置</view>
+    </view>
+    <form bindsubmit="subTurnstileCfgFun">
+      <!-- 设备编号 -->
+      <view class="title">
+        <view class='title_text'>
+          <text>设备编号:</text>
+          <view class="page-section" style="padding-left: 0rpx;">
+            <view class="">
+              <input type="text" class="store-input" name="serialNo" placeholder="输入设备编号"/>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- product_key -->
+      <view class="title">
+        <view class='title_text'>
+          <text>设备秘钥:</text>
+          <view class="page-section" style="padding-left: 0rpx;">
+            <view class="">
+              <input type="text" class="store-input" name="productKey" placeholder="输入IOT设备product-key"/>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 卡券ID -->
+      <view class="title">
+        <view class='title_text'>
+          <text>卡券编号:</text>
+          <view class="page-section" style="padding-left: 0rpx;">
+            <view class="">
+              <input type="text" class="store-input" name="cardId" placeholder="输入卡券编号"/>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 卡券名称 -->
+      <view class="title">
+        <view class='title_text'>
+          <text>卡券名称:</text>
+          <view class="page-section" style="padding-left: 0rpx;">
+            <view class="">
+              <input type="text" class="store-input" name="cardName" placeholder="输入卡券名称"/>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 卡券类别 -->
+      <!-- <view class="title">
+        <view class='title_text'>
+          <text>卡券类别:</text>
+          <view class="page-section" style="padding-left: 0rpx;">
+            <view class="">
+              <input type="text" class="store-input" bindinput="inputSerialNoFun" placeholder="输入卡券类别"/>
+            </view>
+          </view>
+        </view>
+      </view> -->
+      <!-- 提交按钮 -->
+      <button class="subtn" form-type="submit">确认提交</button>
+    </form>   
+  </view>
+</view>
+
+<!--设备配置列表-->
+<view hidden="{{hidenTable}}">
+  <view class="table">
+    <view class="tr bg-w" style="height:2.5rem;z-index:10;width:742rpx;">
+        <view class="th">设备配置列表</view>
+    </view>
+    <view>
+      <scroll-view scroll-y="true" style="height:850rpx;">
+        <block wx:for="{{listData}}" wx:key="index">
+          <view style="display: flex;"  wx:if="{{index % 2 == 0}}">
+            <view class="tr bg-g">
+              <view class="td">门店：{{item.storeName}}</view>
+              <view class="td">卡券：{{item.cardName}}</view>
+              <view class="td">设备：{{item.serialNo?item.serialNo:'无'}}</view>
+            </view>
+            <view class="tr-1 bg-g">
+              <view class="search-bar__cancel-btn td-1" data-serialno="{{item.serialNo}}" bindtap="delTurnstileCfgFun">删 除</view>
+            </view>
+          </view>
+          <view style="display: flex;margin-top: 20rpx;margin-bottom: 20rpx;" wx:else>
+            <view class="tr">
+              <view class="td">门店：{{item.storeName}}</view>
+              <view class="td">卡券：{{item.cardName}}</view>
+              <view class="td">设备：{{item.serialNo?item.serialNo:'无'}}</view>
+            </view>
+            <view class="tr-1">
+              <view class="search-bar__cancel-btn td-1" data-serialno="{{item.serialNo}}" bindtap="delTurnstileCfgFun">删 除</view>
+            </view>
+          </view>
+        </block>
+      </scroll-view> 
+    </view>
+  </view>
+</view>

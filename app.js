@@ -7,7 +7,7 @@ App({
     // path: 'https://moliho.natapp4.cc',
     userInfo: null,
     appId: 'wxeed97f5cf2cc1850',
-    openId:'',
+    openId: null,
     unionId: ''
   },
 
@@ -138,6 +138,10 @@ App({
         wx.setStorageSync('userInfo', res.result.userInfo);
         //
         this.userLogin();
+        //
+        if(this.openIdCallback){
+          this.openIdCallback(res.result);
+        }
       }
     })
   }

@@ -163,6 +163,16 @@ Page({
     //
     let _this = this;
     let userDonate = this.data.userDonate;
+    let openId = app.globalData.openId;
+    // 用户openId为null
+    console.log('用户OpenId：', openId);
+    if(!openId){
+      app.openIdCallback = res => {
+        console.log('app.openIdCallback：', res.openid);
+        openId = res.openid;
+      }
+    }
+    //
     if(null == userDonate){
       // 弹出提示信息框
       wx.showModal({
@@ -219,12 +229,6 @@ Page({
         let cardType = res.data.cardType;
         let cardName = res.data.cardName;
         let userCode = res.data.userCode;
-        let openId = app.globalData.openId;
-        // 用户openId为null
-        if(!openId){
-          app.getOpenid();
-          openId = app.globalData.openId;
-        }
         // 加载领取卡券显示
         wx.addCard({
           cardList: res.data.data, // 参数
@@ -479,6 +483,14 @@ Page({
   findUserInfo: function(opt){
     console.log('findUserInfo=>查询用户信息：', opt);
     let that = this;
+    let openId = app.globalData.openId;
+    console.log('用户OpenId：', openId);
+    if(!openId){
+      app.openIdCallback = res => {
+        console.log('app.openIdCallback：', res.openid);
+        openId = res.openid;
+      }
+    }
     // 
     wx.request({
       url: app.globalData.path + '/store/onlogin',
@@ -486,7 +498,7 @@ Page({
       data: {
           data: {
             appId: app.globalData.appId,
-            openId: app.globalData.openId
+            openId: openId
           }
       },
       success: function(res){
@@ -741,6 +753,14 @@ Page({
     //
     let _this = this;
     let appId = app.globalData.appId;
+    let openId = app.globalData.openId;
+    console.log('用户OpenId：', openId);
+    if(!openId){
+      app.openIdCallback = res => {
+        console.log('app.openIdCallback：', res.openid);
+        openId = res.openid;
+      }
+    }
     // 延时执行验证请求，防止openId为空
     setTimeout(function(){
       //
@@ -749,7 +769,7 @@ Page({
         dataType: 'json',
         data: {
           data: {
-            openId: app.globalData.openId,
+            openId: openId,
             appId: appId,
             secretKey: para,
             type: type
@@ -762,7 +782,6 @@ Page({
           let cardName = res.data.cardName;
           let userCode = res.data.userCode;
           let type = res.data.type;
-          let openId = app.globalData.openId;
           //
           if('300' == code){
             // 弹出提示信息框
@@ -788,10 +807,6 @@ Page({
           } else if('200' == code){
             // 加载领取卡券显示
             console.log('加载卡券数据串：', res);
-            //
-            if(!openId){
-              app.getOpenid();
-            }
             // 显示领取卡券
             wx.addCard({
               cardList: res.data.data, // 参数
@@ -805,7 +820,7 @@ Page({
                   data: {
                     data: {
                       appId: app.globalData.appId,
-                      openId: app.globalData.openId,
+                      openId: openId,
                       userCode: userCode,
                       cardName: cardName,
                       cardType: cardType,
@@ -891,9 +906,12 @@ Page({
       let openId = app.globalData.openId;
       let unionId = wx.getStorageSync('unionId');
       //
+      console.log('用户OpenId：', openId);
       if(!openId){
-        app.getOpenid();
-        openId = app.globalData.openId;
+        app.openIdCallback = res => {
+          console.log('app.openIdCallback：', res.openid);
+          openId = res.openid;
+        }
       }
       //
       setTimeout(function(){
@@ -963,18 +981,26 @@ Page({
   updateUserPhone: function(data){
       //
       let that = this;
+      let openId = app.globalData.openId;
+      console.log('用户OpenId：', openId);
+      if(!openId){
+        app.openIdCallback = res => {
+          console.log('app.openIdCallback：', res.openid);
+          openId = res.openid;
+        }
+      }
       //
       wx.request({
         url: app.globalData.path + '/store/decryptUserPhone',
         dataType: 'json',
         data: {
-            data: {
+          data: {
             appId: app.globalData.appId,
-            openId: app.globalData.openId,
+            openId: openId,
             sessionKey: wx.getStorageSync('sessionKey'),
             encryptedData: data.encryptedData,
             iv: data.iv
-            }
+          }
         },
         success: function(re){
             //

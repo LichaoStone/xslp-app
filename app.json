@@ -16,7 +16,7 @@
     "pages/storeList/storeList",
     "pages/summary/summary",
     "pages/statistical/statistical",
-    "pages/staff/staff",
+    "pages/serial/serial",
     "pages/logs/logs"
   ],
   "permission": {
