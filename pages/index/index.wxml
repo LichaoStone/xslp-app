@@ -40,7 +40,7 @@
   </view>
   <!-- 活动图片 -->
   <view class="gas_positon">
-    <image class="hd-view" style="height:{{s_height}}" mode="scaleToFill" src="../../image/hd.jpg"></image>
+    <image class="hd-view" style="height:{{s_height}}" mode="scaleToFill" src="../../image/hd1.jpg"></image>
   </view>
 
   <!-- 技术支持 -->
@@ -56,7 +56,18 @@
     </view>
     <view class="line-1"></view>
   </view>
-
+  <!--弹窗-->
+  <view hidden="{{showModal}}" class="modal-mask" catchtouchmove="preventTouchMove"></view>
+  <view hidden="{{showModal}}" class="modal-dialog">
+    <view class="modal-title">确认车牌是否正确谨防损失</view>
+    <view class="modal-content">
+      <view class="modal-input">{{carCode != null ? carCode : '_无_'}}</view>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-cancel" bindtap="carCodeCancelFun" data-status="cancel" data-type="0">取消</view>
+      <view class="btn-confirm" bindtap="carCodeConfirmFun" data-status="confirm" data-type="1">确定</view>
+    </view>
+  </view>
   <!-- 扫码核销组件 -->
   <v-dialog id="dialog" isShow="{{isShow}}" detail="{{detail}}"></v-dialog>
 

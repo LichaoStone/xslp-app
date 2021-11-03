@@ -33,7 +33,8 @@ Component({
         staffOpenId: null,
         cardId: null,
         cardCode: '',
-        cardName: ''
+        cardName: '',
+        type: null
     },
 
     /**
@@ -109,7 +110,10 @@ Component({
             let cardId = e.target.dataset.cardid;
             let cardName = e.target.dataset.cardname;
             let staffOpenId = e.target.dataset.staffopenid;
-            //
+            let type = e.target.dataset.type;
+            let carCode = this.data.carCode;
+            
+            // 请求后台核销用户卡券，并绑定用户车牌
             wx.request({
                 url: app.globalData.path + '/store/clearUserCoupon',
                 dataType: 'json',
@@ -120,7 +124,9 @@ Component({
                         cardId: cardId,
                         cardName: cardName,
                         staffOpenId: staffOpenId,
-                        cardCode: that.data.cardCode
+                        cardCode: that.data.cardCode,
+                        type: type,
+                        carCode: carCode
                     }
                 },
                 success: function (res) {
@@ -184,6 +190,14 @@ Component({
             let cardName = paraAry[1];
             let cardType = paraAry[2];
             let staffOpenId = paraAry[3];
+            let type = paraAry[4];
+            let carCode = paraAry[5];
+            //
+            this.setData({
+                type: type,
+                carCode: carCode
+            });
+
             // 查询核销门店名称
             wx.request({
               url: app.globalData.path + '/store/queryStoreStaffInfo',

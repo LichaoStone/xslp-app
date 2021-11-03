@@ -1,9 +1,10 @@
 //app.js
 
 App({
-  //
+
   globalData: {
-    path: 'https://taiduoquan.cn',
+    path: 'http://qtv7vm.natappfree.cc',
+    //path: 'https://taiduoquan.cn',
     // path: 'https://moliho.natapp4.cc',
     userInfo: null,
     appId: 'wxeed97f5cf2cc1850',
@@ -24,7 +25,6 @@ App({
     });
     //
     this.getOpenid();
-    //
     // 检查小程序是否有新版本发布
     if (wx.canIUse('getUpdateManager')) {
       const updateManager = wx.getUpdateManager()

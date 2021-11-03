@@ -13,9 +13,12 @@ Page({
   checkScanQrCodeFun: function(para, type) {
     //
     console.log('验证扫码参数：', para);
-    let appId = app.globalData.appId;
-    if(!appId){
-      app.getOpenid();
+    let openId = app.globalData.openId;
+    if(!openId){
+      app.openIdCallback = res => {
+        console.log('app.openIdCallback：', res.openid);
+        openId = res.openid;
+      }
     }
     //
     wx.request({
@@ -73,7 +76,7 @@ Page({
                 data: {
                   data: {
                     appId: app.globalData.appId,
-                    openId: app.globalData.openId,
+                    openId: openId,
                     userCode: userCode,
                     cardName: cardName,
                     cardType: cardType,
@@ -91,7 +94,7 @@ Page({
                     data: {
                       data: {
                         appId: app.globalData.appId,
-                        openId: app.globalData.openId
+                        openId: openId
                       }
                     },
                     success: function (res) {
